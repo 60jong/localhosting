@@ -1,7 +1,6 @@
 package site.ugaeng.localhosting.http.client;
 
 import lombok.RequiredArgsConstructor;
-import site.ugaeng.localhosting.http.HttpConstant;
 import site.ugaeng.localhosting.http.ProtocolVersion;
 import site.ugaeng.localhosting.http.request.Request;
 import site.ugaeng.localhosting.http.request.RequestLine;
@@ -22,28 +21,55 @@ import static java.net.http.HttpResponse.*;
 import static site.ugaeng.localhosting.http.HttpConstant.*;
 
 @RequiredArgsConstructor
-public class HttpRequestClient implements RequestClient {
+public class HttpLocalProcessRequestClient implements LocalProcessRequestClient {
 
     private final HttpClient client;
 
     @Override
     public Response performRequest(Request request) {
-        final HttpRequest httpRequest = buildHttpRequest(request);
-
         try
         {
+            final HttpRequest httpRequest = buildHttpRequest(request);
+
             HttpResponse<String> httpResponse = client.send(httpRequest, BodyHandlers.ofString());
 
-            return Response.builder()
-                    .statusLine(generateHttpResponse(httpResponse))
-                    .headers(flattenValuedMap(httpResponse.headers()))
-                    .entity(httpResponse.body())
-                    .build();
+            return generateResponse(httpResponse);
         }
         catch (Exception e)
         {
             throw new RuntimeException(e);
         }
+    }
+
+    private HttpRequest buildHttpRequest(Request request) {
+        final RequestLine requestLine = request.getRequestLine();
+
+        final String method = requestLine.getMethod();
+        final String uri = requestLine.getUri();
+        final String version = requestLine.getVersion().getValue();
+
+        return HttpRequest.newBuilder()
+                .method(method, HttpRequest.BodyPublishers.noBody())
+                .uri(URI.create(uri))
+                .version(getVersion(version))
+                .build();
+    }
+
+    private Version getVersion(String version) {
+
+        if (version.equals("HTTP/1.1")) {
+            return Version.HTTP_1_1;
+        }
+
+        return null;
+    }
+
+    private Response generateResponse(HttpResponse<String> httpResponse) {
+        return Response.builder()
+                .statusLine(generateStatusLine(httpResponse))
+                .headers(flattenValuedMap(httpResponse.headers()))
+                .entity(httpResponse.body())
+                .build();
     }
 
     private Map<String, ? extends Object> flattenValuedMap(HttpHeaders headers) {
@@ -61,7 +87,7 @@ public class HttpRequestClient implements RequestClient {
         return flattenValuedMap;
     }
 
-    private StatusLine generateHttpResponse(HttpResponse<String> httpResponse) {
+    private StatusLine generateStatusLine(HttpResponse<String> httpResponse) {
         final String version = httpResponse.version().name();
         final int statusCode = httpResponse.statusCode();
 
@@ -70,29 +96,6 @@ public class HttpRequestClient implements RequestClient {
                 .statusCode(statusCode)
                 .reasonPhrase("OK")
                 .build();
-    }
-
-    private HttpRequest buildHttpRequest(Request request) {
-        final RequestLine requestLine = request.getRequestLine();
-
-        final String method = requestLine.getMethod();
-        final String uri = requestLine.getUri();
-        final String version = requestLine.getVersion().getValue();
-
-        return HttpRequest.newBuilder()
-                          .method(method, HttpRequest.BodyPublishers.noBody())
-                          .uri(URI.create(uri))
-                          .version(getVersion(version))
-                          .build();
-    }
-
-    private Version getVersion(String version) {
-
-        if (version.equals("HTTP/1.1")) {
-            return Version.HTTP_1_1;
-        }
-
-        return null;
     }
 }
 
