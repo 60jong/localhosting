@@ -1,8 +1,5 @@
 #!/bin/bash
 
-# change directory
-cd ..
-
 # build jar
 echo -e '### BUILD localhosting.jar start ###\n'
 ./gradlew jar

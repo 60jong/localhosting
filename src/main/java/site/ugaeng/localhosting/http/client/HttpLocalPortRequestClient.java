@@ -1,6 +1,7 @@
 package site.ugaeng.localhosting.http.client;
 
 import lombok.RequiredArgsConstructor;
+import site.ugaeng.localhosting.http.HttpConstant;
 import site.ugaeng.localhosting.http.ProtocolVersion;
 import site.ugaeng.localhosting.http.request.Request;
 import site.ugaeng.localhosting.http.request.RequestLine;
@@ -9,11 +10,16 @@ import site.ugaeng.localhosting.http.response.StatusLine;
 
 import java.net.URI;
 import java.net.http.HttpClient;
+import java.net.http.HttpHeaders;
 import java.net.http.HttpRequest;
 import java.net.http.HttpResponse;
+import java.util.HashMap;
+import java.util.List;
+import java.util.Map;
 
 import static java.net.http.HttpClient.*;
 import static java.net.http.HttpResponse.*;
+import static site.ugaeng.localhosting.http.HttpConstant.*;
 
 @RequiredArgsConstructor
 public class HttpRequestClient implements RequestClient {
@@ -29,8 +35,8 @@ public class HttpRequestClient implements RequestClient {
             HttpResponse<String> httpResponse = client.send(httpRequest, BodyHandlers.ofString());
 
             return Response.builder()
-                    .statusLine(buildStatusLine(httpResponse))
-                    .headers(httpResponse.headers().map())
+                    .statusLine(generateHttpResponse(httpResponse))
+                    .headers(flattenValuedMap(httpResponse.headers()))
                     .entity(httpResponse.body())
                     .build();
         }
@@ -40,7 +46,22 @@ public class HttpRequestClient implements RequestClient {
         }
     }
 
-    private StatusLine buildStatusLine(HttpResponse<String> httpResponse) {
+    private Map<String, ? extends Object> flattenValuedMap(HttpHeaders headers) {
+        final Map<String, String> flattenValuedMap = new HashMap<>();
+
+        Map<String, List<String>> headerMap = headers.map();
+
+        headerMap.keySet()
+                .stream()
+                .forEach(key -> {
+                    final var valueSequence = String.join(SEMI_COLON, headerMap.get(key));
+                    flattenValuedMap.put(key, valueSequence);
+                });
+
+        return flattenValuedMap;
+    }
+
+    private StatusLine generateHttpResponse(HttpResponse<String> httpResponse) {
         final String version = httpResponse.version().name();
         final int statusCode = httpResponse.statusCode();
 
