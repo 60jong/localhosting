@@ -9,11 +9,20 @@ import java.io.IOException;
 public class ClosableUtils {
 
     public static void close(Closeable closeable) {
-        try {
+        try
+        {
             closeable.close();
             log.info("Closable [{}] closed", closeable);
-        } catch (IOException e) {
+        }
+        catch (IOException e)
+        {
             throw new RuntimeException(e);
+        }
+    }
+
+    public static void close(Closeable... closeables) {
+        for (var c : closeables) {
+            close(c);
         }
     }
 }
