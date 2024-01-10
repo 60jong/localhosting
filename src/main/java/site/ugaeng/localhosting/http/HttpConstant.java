@@ -9,4 +9,8 @@ public class HttpConstant {
 
     public static final String SP = " ";
     public static final String EMPTY = "";
+
+    public static final String LOCALHOST = "localhost";
+
+    public static final String TRANSFER_ENCODING = "transfer-encoding";
 }

@@ -2,14 +2,14 @@ package site.ugaeng.localhosting;
 
 public class LocalForwardServer {
 
-    private ProxyConnector connector;
-    private boolean running;
+    private final ProxyConnector connector;
+
+    public LocalForwardServer() {
+        connector = new ProxyConnector();
+    }
 
     public void run() {
-
-        while (running) {
-            connector.connect();
-        }
+        connector.start();
     }
 
 }
