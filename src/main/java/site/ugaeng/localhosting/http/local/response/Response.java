@@ -1,7 +1,8 @@
-package site.ugaeng.localhosting.http.response;
+package site.ugaeng.localhosting.http.local.response;
 
 import lombok.Builder;
 import lombok.Getter;
+import site.ugaeng.localhosting.http.response.StatusLine;
 
 import java.util.Map;
 

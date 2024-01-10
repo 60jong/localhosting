@@ -7,7 +7,7 @@ import static org.assertj.core.api.Assertions.*;
 import static org.junit.jupiter.api.Assertions.*;
 
 @DisplayName("Application 실행 option 매핑 테스트")
-class ApplicationParamsTest {
+class HostingParamsTest {
 
     @Test
     void option_mapping() {
@@ -16,7 +16,7 @@ class ApplicationParamsTest {
         String[] args = arguments.split(" ");
 
         // when
-        ApplicationParams params = new ApplicationParams(args);
+        HostingParams params = new HostingParams(args);
 
         // then
         assertAll(

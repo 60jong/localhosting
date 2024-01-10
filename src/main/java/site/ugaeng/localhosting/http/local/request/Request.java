@@ -1,8 +1,8 @@
-package site.ugaeng.localhosting.http.request;
+package site.ugaeng.localhosting.http.local.request;
 
 import lombok.Builder;
 import lombok.Getter;
-
+import site.ugaeng.localhosting.http.request.RequestLine;
 import java.util.Map;
 
 @Getter

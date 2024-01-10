@@ -3,13 +3,13 @@ package site.ugaeng.localhosting;
 import lombok.Getter;
 
 @Getter
-public class ApplicationParams {
+public class HostingParams {
 
     private int localPort;
     private String domainName;
-    private int timeout;
+//    private int timeout;
 
-    public ApplicationParams(String[] args) {
+    public HostingParams(String[] args) {
 
         for (int i = 0; i < args.length; i++) {
             if (args[i].equals("-p")) {
@@ -20,9 +20,9 @@ public class ApplicationParams {
                 this.domainName = args[i + 1];
             }
 
-            if (args[i].equals("-timeout")) {
-                this.timeout = Integer.parseInt(args[i + 1]);
-            }
+//            if (args[i].equals("-timeout")) {
+//                this.timeout = Integer.parseInt(args[i + 1]);
+//            }
         }
     }
 }
