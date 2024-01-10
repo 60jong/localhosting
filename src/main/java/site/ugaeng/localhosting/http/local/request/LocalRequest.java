@@ -7,7 +7,7 @@ import java.util.Map;
 
 @Getter
 @Builder
-public final class Request {
+public final class LocalRequest {
 
     private RequestLine requestLine;
     private Map<String, Object> headers;
