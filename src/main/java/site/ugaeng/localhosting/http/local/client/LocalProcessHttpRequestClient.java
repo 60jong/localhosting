@@ -1,10 +1,10 @@
-package site.ugaeng.localhosting.http.client;
+package site.ugaeng.localhosting.http.local.client;
 
 import lombok.RequiredArgsConstructor;
 import site.ugaeng.localhosting.http.ProtocolVersion;
-import site.ugaeng.localhosting.http.request.LocalRequest;
+import site.ugaeng.localhosting.http.local.request.Request;
 import site.ugaeng.localhosting.http.request.RequestLine;
-import site.ugaeng.localhosting.http.response.LocalResponse;
+import site.ugaeng.localhosting.http.local.response.Response;
 import site.ugaeng.localhosting.http.response.StatusLine;
 
 import java.net.URI;
@@ -20,30 +20,40 @@ import static java.net.http.HttpClient.*;
 import static java.net.http.HttpResponse.*;
 import static site.ugaeng.localhosting.http.HttpConstant.*;
 
-@RequiredArgsConstructor
 public class LocalProcessHttpRequestClient implements LocalProcessRequestClient {
+
+    private static LocalProcessHttpRequestClient instance;
 
     private final HttpClient client;
 
+    private LocalProcessHttpRequestClient() {
+        this.client = HttpClient.newHttpClient();
+    }
+
+    public static LocalProcessHttpRequestClient getInstance() {
+        if (instance == null) {
+            instance = new LocalProcessHttpRequestClient();
+        }
+
+        return instance;
+    }
+
     @Override
-    public LocalResponse performLocalRequest(LocalRequest request) {
-        try
-        {
+    public Response performRequest(Request request) {
+        try {
             final HttpRequest httpRequest = HttpRequestBuilder.buildHttpRequest(request);
 
             HttpResponse<String> httpResponse = client.send(httpRequest, BodyHandlers.ofString());
 
             return LocalResponseMapper.mapLocalResponse(httpResponse);
-        }
-        catch (Exception e)
-        {
+        } catch (Exception e) {
             throw new RuntimeException(e);
         }
     }
 
     private static class HttpRequestBuilder {
 
-        private static HttpRequest buildHttpRequest(LocalRequest request) {
+        private static HttpRequest buildHttpRequest(Request request) {
             // HTTP RequestLine
             final RequestLine requestLine = request.getRequestLine();
 
@@ -55,10 +65,10 @@ public class LocalProcessHttpRequestClient implements LocalProcessRequestClient 
             // HTTP RequestHeaders
 
             return HttpRequest.newBuilder()
-                    .method(method, HttpRequest.BodyPublishers.noBody())
-                    .uri(URI.create(uri))
-                    .version(getVersion(version))
-                    .build();
+                              .method(method, HttpRequest.BodyPublishers.noBody())
+                              .uri(URI.create(uri))
+                              .version(getVersion(version))
+                              .build();
         }
 
         private static Version getVersion(String version) {
@@ -67,18 +77,22 @@ public class LocalProcessHttpRequestClient implements LocalProcessRequestClient 
                 return Version.HTTP_1_1;
             }
 
+            if (version.equals("HTTP/2")) {
+                return Version.HTTP_2;
+            }
+
             return null;
         }
     }
 
     private static class LocalResponseMapper {
 
-        private static LocalResponse mapLocalResponse(HttpResponse<String> httpResponse) {
-            return LocalResponse.builder()
-                    .statusLine(buildStatusLine(httpResponse))
-                    .headers(flattenValuedMap(httpResponse.headers()))
-                    .entity(httpResponse.body())
-                    .build();
+        private static Response mapLocalResponse(HttpResponse<String> httpResponse) {
+            return Response.builder()
+                                .statusLine(buildStatusLine(httpResponse))
+                                .headers(flattenValuedMap(httpResponse.headers()))
+                                .entity(httpResponse.body())
+                                .build();
         }
 
         private static Map<String, Object> flattenValuedMap(HttpHeaders headers) {
@@ -94,8 +108,8 @@ public class LocalProcessHttpRequestClient implements LocalProcessRequestClient 
                     });
 
             // remove [Transfer-Encoding: chunked]
-            System.out.println(flattenValuedMap);
             flattenValuedMap.remove("transfer-encoding");
+
             return flattenValuedMap;
         }
 
@@ -106,7 +120,7 @@ public class LocalProcessHttpRequestClient implements LocalProcessRequestClient 
             return StatusLine.builder()
                     .version(ProtocolVersion.of(version))
                     .statusCode(statusCode)
-                    .reasonPhrase("OK")
+                    .reasonPhrase("")
                     .build();
         }
 

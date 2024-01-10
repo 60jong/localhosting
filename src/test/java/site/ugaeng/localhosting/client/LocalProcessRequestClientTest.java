@@ -3,11 +3,11 @@ package site.ugaeng.localhosting.client;
 import org.junit.jupiter.api.BeforeEach;
 import org.junit.jupiter.api.Test;
 import site.ugaeng.localhosting.http.ProtocolVersion;
-import site.ugaeng.localhosting.http.client.HttpLocalProcessRequestClient;
-import site.ugaeng.localhosting.http.client.LocalProcessRequestClient;
-import site.ugaeng.localhosting.http.request.Request;
+import site.ugaeng.localhosting.http.local.client.LocalProcessHttpRequestClient;
+import site.ugaeng.localhosting.http.local.client.LocalProcessRequestClient;
+import site.ugaeng.localhosting.http.local.request.Request;
 import site.ugaeng.localhosting.http.request.RequestLine;
-import site.ugaeng.localhosting.http.response.Response;
+import site.ugaeng.localhosting.http.local.response.Response;
 
 import java.net.http.HttpClient;
 
@@ -19,7 +19,7 @@ class LocalProcessRequestClientTest {
 
     @BeforeEach
     void beforeEach() {
-        client = new HttpLocalProcessRequestClient(HttpClient.newHttpClient());
+        client = new LocalProcessHttpRequestClient(HttpClient.newHttpClient());
     }
 
     @Test

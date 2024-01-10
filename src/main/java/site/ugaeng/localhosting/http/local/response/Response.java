@@ -11,7 +11,7 @@ import static site.ugaeng.localhosting.http.HttpConstant.*;
 
 @Getter
 @Builder
-public final class LocalResponse {
+public final class Response {
 
     private StatusLine statusLine;
     private Map<String, Object> headers;

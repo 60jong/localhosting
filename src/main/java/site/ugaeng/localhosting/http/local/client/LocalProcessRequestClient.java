@@ -1,9 +1,9 @@
-package site.ugaeng.localhosting.http.client;
+package site.ugaeng.localhosting.http.local.client;
 
-import site.ugaeng.localhosting.http.request.LocalRequest;
-import site.ugaeng.localhosting.http.response.LocalResponse;
+import site.ugaeng.localhosting.http.local.request.Request;
+import site.ugaeng.localhosting.http.local.response.Response;
 
 public interface LocalProcessRequestClient {
 
-    LocalResponse performLocalRequest(LocalRequest request);
+    Response performRequest(Request request);
 }
