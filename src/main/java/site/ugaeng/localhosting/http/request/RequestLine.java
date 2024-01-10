@@ -7,26 +7,11 @@ import site.ugaeng.localhosting.http.ProtocolVersion;
 import static site.ugaeng.localhosting.http.HttpConstant.SP;
 
 @Getter
-@Builder
 public class RequestLine {
 
     private String method;
     private String uri;
     private ProtocolVersion version;
-
-    public static RequestLine from(String line) {
-        final String[] elements = line.split(SP);
-
-        final var method = elements[0];
-        final var uri = elements[1];
-        final var version = elements[2];
-
-        return builder()
-                .method(method)
-                .uri("http://localhost:8080" + uri)
-                .version(ProtocolVersion.of(version))
-                .build();
-    }
 
     @Override
     public String toString() {
@@ -39,6 +24,44 @@ public class RequestLine {
                      .append(version.getValue())
                      .append(SP)
                      .toString();
+    }
+
+    public static Builder builder() {
+        return new Builder(new RequestLine());
+    }
+
+    /* Builder Class */
+    protected static class Builder {
+
+        private final RequestLine requestLine;
+
+        public Builder(RequestLine requestLine) {
+            this.requestLine = requestLine;
+        }
+
+        public Builder method(String method) {
+            requestLine.method = method;
+            return this;
+        }
+
+        public Builder uri(String uri) {
+            requestLine.uri = uri;
+            return this;
+        }
+
+        public Builder localUri(String uri) {
+            requestLine.uri = "http://localhost:" + uri;
+            return this;
+        }
+
+        public Builder version(ProtocolVersion version) {
+            requestLine.version = version;
+            return this;
+        }
+
+        public RequestLine build() {
+            return this.requestLine;
+        }
     }
 
 }
