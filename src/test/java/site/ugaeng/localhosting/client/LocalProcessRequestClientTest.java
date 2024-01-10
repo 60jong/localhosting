@@ -3,11 +3,13 @@ package site.ugaeng.localhosting.client;
 import org.junit.jupiter.api.BeforeEach;
 import org.junit.jupiter.api.Test;
 import site.ugaeng.localhosting.http.ProtocolVersion;
+import site.ugaeng.localhosting.http.local.LocalRequests;
 import site.ugaeng.localhosting.http.local.client.LocalProcessHttpRequestClient;
 import site.ugaeng.localhosting.http.local.client.LocalProcessRequestClient;
 import site.ugaeng.localhosting.http.local.request.Request;
 import site.ugaeng.localhosting.http.request.RequestLine;
 import site.ugaeng.localhosting.http.local.response.Response;
+import site.ugaeng.localhosting.http.request.RequestLineBuilder;
 
 import java.net.http.HttpClient;
 
@@ -19,18 +21,14 @@ class LocalProcessRequestClientTest {
 
     @BeforeEach
     void beforeEach() {
-        client = new LocalProcessHttpRequestClient(HttpClient.newHttpClient());
+        client = LocalRequests.getLocalRequestClient();
     }
 
     @Test
     void get_request() {
         // given
         Request request = Request.builder()
-                .requestLine(RequestLine.builder()
-                        .method("GET")
-                        .uri("http://localhost:8080/posts")
-                        .version(ProtocolVersion.of("HTTP/1.1"))
-                        .build())
+                .requestLine(RequestLineBuilder.buildLocalRequestLine("GET /posts HTTP/1.1"))
                 .build();
 
         // when

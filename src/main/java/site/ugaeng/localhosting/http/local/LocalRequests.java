@@ -1,33 +1,21 @@
 package site.ugaeng.localhosting.http.local;
 
-import site.ugaeng.localhosting.HostingParams;
+import site.ugaeng.localhosting.env.Environment;
+import site.ugaeng.localhosting.env.EnvironmentConst;
 import site.ugaeng.localhosting.http.local.client.LocalProcessHttpRequestClient;
 import site.ugaeng.localhosting.http.local.client.LocalProcessRequestClient;
 
-import java.util.HashMap;
-import java.util.Map;
-
 public class LocalRequests {
 
-    private static final String LOCAL_REQUEST_CLIENT = "LOCAL_REQUEST_CLIENT";
-    private static final String LOCAL_REQUEST_PORT = "LOCAL_REQUEST_PORT";
-
-    private static final Map<String, Object> localRequestVariables = new HashMap<>();
-
-    public static void init(HostingParams params) {
-        localRequestVariables.put(LOCAL_REQUEST_CLIENT, LocalProcessHttpRequestClient.getInstance());
-        localRequestVariables.put(LOCAL_REQUEST_PORT, params.getLocalPort());
-    }
-
     public static LocalProcessRequestClient getLocalRequestClient() {
-        return (LocalProcessRequestClient) localRequestVariables.get(LOCAL_REQUEST_CLIENT);
+        return LocalProcessHttpRequestClient.getInstance();
     }
 
-    public static int getLocalRequestPort() {
-        return (int) localRequestVariables.get(LOCAL_REQUEST_PORT);
+    public static int getLocalHostingPort() {
+        return (int) Environment.getProperty(EnvironmentConst.HOSTING_PORT);
     }
 
     public static String getLocalRequestHost() {
-        return "http://localhost:" + getLocalRequestPort();
+        return "http://localhost:" + getLocalHostingPort();
     }
 }

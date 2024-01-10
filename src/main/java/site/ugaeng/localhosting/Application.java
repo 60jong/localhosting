@@ -2,41 +2,43 @@ package site.ugaeng.localhosting;
 
 import lombok.extern.slf4j.Slf4j;
 import org.yaml.snakeyaml.Yaml;
+import site.ugaeng.localhosting.env.Environment;
 
 import java.io.*;
-import java.util.Map;
 
 @Slf4j
 public class Application {
 
     public static void main(String[] args) {
-        log.info("...Localhosting started...");
+        log.info("## Localhosting start ##");
 
-        log.info("...setting Localhosting System started...");
-        setup();
-        log.info("...setting Localhosting System ended...");
+        configure(args);
+
+        var server = new LocalForwardServer();
+        server.run();
     }
 
-    private static void setup() {
-
-        Map<String, Object> systemEnvs = getSystemEnvs();
-
-        for (Map.Entry<String, Object> entry : systemEnvs.entrySet()) {
-            log.info("System Environments : " + entry);
-        }
+    private static void configure(String[] args) {
+        configEnvironmentProperties(args);
     }
 
-    private static Map<String, Object> getSystemEnvs() {
-        try (InputStream systemEnvReader = getSystemEnvReader())
-        {
-            return new Yaml().load(systemEnvReader);
-        }
-        catch (IOException e) {
+    private static void configEnvironmentProperties(String[] args) {
+        ClientArgs clientArgs = new ClientArgs(args);
+        ServerArgs serverArgs = getServerArgs();
+
+        // set Environment
+        Environment.init(new HostingArgs(clientArgs, serverArgs));
+    }
+
+    private static ServerArgs getServerArgs() {
+        try (InputStream systemArgsReader = getServerArgsReader()) {
+            return new Yaml().load(systemArgsReader);
+        } catch (IOException e) {
             throw new RuntimeException(e);
         }
     }
 
-    private static InputStream getSystemEnvReader() throws FileNotFoundException {
+    private static InputStream getServerArgsReader() throws FileNotFoundException {
         final String systemEnvFilePath = System.getProperty("user.dir") + "\\src\\main\\resources\\localhosting.yml";
 
         return new FileInputStream(systemEnvFilePath);
