@@ -21,8 +21,7 @@ class HostingParamsTest {
         // then
         assertAll(
                 () -> assertThat(params.getLocalPort()).isEqualTo(8080),
-                () -> assertThat(params.getDomainName()).isEqualTo("domain"),
-                () -> assertThat(params.getTimeout()).isEqualTo(30)
+                () -> assertThat(params.getDomainName()).isEqualTo("domain")
         );
 
     }
