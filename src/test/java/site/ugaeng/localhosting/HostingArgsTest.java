@@ -7,7 +7,7 @@ import static org.assertj.core.api.Assertions.*;
 import static org.junit.jupiter.api.Assertions.*;
 
 @DisplayName("Application 실행 option 매핑 테스트")
-class HostingParamsTest {
+class HostingArgsTest {
 
     @Test
     void option_mapping() {
@@ -16,11 +16,11 @@ class HostingParamsTest {
         String[] args = arguments.split(" ");
 
         // when
-        HostingParams params = new HostingParams(args);
+        HostingArgs params = new HostingArgs(args);
 
         // then
         assertAll(
-                () -> assertThat(params.getLocalPort()).isEqualTo(8080),
+                () -> assertThat(params.getHostingPort()).isEqualTo(8080),
                 () -> assertThat(params.getDomainName()).isEqualTo("domain")
         );
 
