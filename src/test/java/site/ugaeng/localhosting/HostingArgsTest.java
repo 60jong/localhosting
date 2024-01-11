@@ -16,7 +16,7 @@ class HostingArgsTest {
         String[] args = arguments.split(" ");
 
         // when
-        HostingArgs params = new HostingArgs(args);
+        ClientArgs params = new ClientArgs(args);
 
         // then
         assertAll(
