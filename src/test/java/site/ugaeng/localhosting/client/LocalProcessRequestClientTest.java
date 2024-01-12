@@ -2,18 +2,19 @@ package site.ugaeng.localhosting.client;
 
 import org.junit.jupiter.api.BeforeEach;
 import org.junit.jupiter.api.Test;
-import site.ugaeng.localhosting.http.ProtocolVersion;
 import site.ugaeng.localhosting.http.local.LocalRequests;
-import site.ugaeng.localhosting.http.local.client.LocalProcessHttpRequestClient;
 import site.ugaeng.localhosting.http.local.client.LocalProcessRequestClient;
 import site.ugaeng.localhosting.http.local.request.Request;
-import site.ugaeng.localhosting.http.request.RequestLine;
 import site.ugaeng.localhosting.http.local.response.Response;
-import site.ugaeng.localhosting.http.request.RequestLineBuilder;
+import site.ugaeng.localhosting.test.EnvironmentConfig;
 
-import java.net.http.HttpClient;
+import java.io.BufferedReader;
+import java.io.ByteArrayInputStream;
+import java.io.IOException;
 
 import static org.assertj.core.api.Assertions.*;
+import static site.ugaeng.localhosting.test.TestHttpRequestMessage.*;
+import static site.ugaeng.localhosting.util.IOStreamUtils.getBufferedReader;
 
 class LocalProcessRequestClientTest {
 
@@ -21,21 +22,36 @@ class LocalProcessRequestClientTest {
 
     @BeforeEach
     void beforeEach() {
+        EnvironmentConfig.setupEnvironment();
+
         client = LocalRequests.getLocalRequestClient();
     }
 
     @Test
-    void get_request() {
+    void get_request() throws IOException {
         // given
-        Request request = Request.builder()
-                .requestLine(RequestLineBuilder.buildLocalRequestLine("GET /posts HTTP/1.1"))
-                .build();
+        BufferedReader reader = getBufferedReader(new ByteArrayInputStream(HTTP_REQUEST_MESSAGE_GET.getBytes()));
+        Request request = Request.readFromReader(reader);
 
         // when
         Response response = client.performRequest(request);
 
         // then
-        assertThat(response.getStatusLine().toString()).isEqualTo("HTTP/1.1 200 OK");
+        assertThat(response.getStatusLine().toString()).isEqualTo("HTTP/1.1 200 ");
     }
+
+    @Test
+    void post_request() throws IOException {
+        // given
+        BufferedReader reader = getBufferedReader(new ByteArrayInputStream(HTTP_REQUEST_MESSAGE_POST_en.getBytes()));
+        Request request = Request.readFromReader(reader);
+
+        // when
+        Response response = client.performRequest(request);
+
+        // then
+        assertThat(response.getStatusLine().toString()).isEqualTo("HTTP/1.1 200 ");
+    }
+
 
 }

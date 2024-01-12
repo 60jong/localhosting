@@ -1,24 +1,17 @@
 package site.ugaeng.localhosting.http.local.client;
 
-import lombok.RequiredArgsConstructor;
-import site.ugaeng.localhosting.http.ProtocolVersion;
 import site.ugaeng.localhosting.http.local.request.Request;
 import site.ugaeng.localhosting.http.request.RequestLine;
 import site.ugaeng.localhosting.http.local.response.Response;
-import site.ugaeng.localhosting.http.response.StatusLine;
 
 import java.net.URI;
 import java.net.http.HttpClient;
-import java.net.http.HttpHeaders;
 import java.net.http.HttpRequest;
 import java.net.http.HttpResponse;
-import java.util.HashMap;
-import java.util.List;
 import java.util.Map;
 
 import static java.net.http.HttpClient.*;
 import static java.net.http.HttpResponse.*;
-import static site.ugaeng.localhosting.http.HttpConstant.*;
 
 public class LocalProcessHttpRequestClient implements LocalProcessRequestClient {
 
@@ -27,7 +20,17 @@ public class LocalProcessHttpRequestClient implements LocalProcessRequestClient 
     private final HttpClient client;
 
     private LocalProcessHttpRequestClient() {
-        this.client = HttpClient.newHttpClient();
+        client = createHttpClient();
+    }
+
+    private HttpClient createHttpClient() {
+        allowRestrictedHeaders();
+
+        return HttpClient.newHttpClient();
+    }
+
+    private static void allowRestrictedHeaders() {
+        System.setProperty("jdk.httpclient.allowRestrictedHeaders", "connection,host,content-length");
     }
 
     public static LocalProcessHttpRequestClient getInstance() {
@@ -45,7 +48,7 @@ public class LocalProcessHttpRequestClient implements LocalProcessRequestClient 
 
             HttpResponse<String> httpResponse = client.send(httpRequest, BodyHandlers.ofString());
 
-            return LocalResponseMapper.mapLocalResponse(httpResponse);
+            return ResponseMapper.mapToResponse(httpResponse);
         } catch (Exception e) {
             throw new RuntimeException(e);
         }
@@ -61,18 +64,29 @@ public class LocalProcessHttpRequestClient implements LocalProcessRequestClient 
             final String uri = requestLine.getUri();
             final String version = requestLine.getVersion().getValue();
 
-            // TODO : request header 추가
             // HTTP RequestHeaders
+            final Map<String, Object> requestHeaders = request.getHeaders();
 
-            return HttpRequest.newBuilder()
-                              .method(method, HttpRequest.BodyPublishers.noBody())
-                              .uri(URI.create(uri))
-                              .version(getVersion(version))
-                              .build();
+            // HTTP Body
+            final String body = request.getEntity();
+
+            HttpRequest.Builder builder = HttpRequest.newBuilder();
+            setUri(builder, uri);
+            setVersion(builder, version);
+            setHeaders(builder, requestHeaders);
+            setMethodAndBody(builder, method, body);
+            return builder.build();
+        }
+
+        private static void setUri(HttpRequest.Builder builder, String uri) {
+            builder.uri(URI.create(uri));
+        }
+
+        private static void setVersion(HttpRequest.Builder builder, String version) {
+            builder.version(getVersion(version));
         }
 
         private static Version getVersion(String version) {
-
             if (version.equals("HTTP/1.1")) {
                 return Version.HTTP_1_1;
             }
@@ -83,47 +97,34 @@ public class LocalProcessHttpRequestClient implements LocalProcessRequestClient 
 
             return null;
         }
-    }
 
-    private static class LocalResponseMapper {
-
-        private static Response mapLocalResponse(HttpResponse<String> httpResponse) {
-            return Response.builder()
-                                .statusLine(buildStatusLine(httpResponse))
-                                .headers(flattenValuedMap(httpResponse.headers()))
-                                .entity(httpResponse.body())
-                                .build();
+        private static void setHeaders(HttpRequest.Builder builder, Map<String, Object> requestHeaders) {
+            for (var header : requestHeaders.entrySet()) {
+                builder.header(header.getKey(), (String) header.getValue());
+            }
         }
 
-        private static Map<String, Object> flattenValuedMap(HttpHeaders headers) {
-            final Map<String, Object> flattenValuedMap = new HashMap<>();
+        private static void setMethodAndBody(HttpRequest.Builder builder, String method, String body) {
+            if (hasNoBody(method)) {
+                builder.method(method, HttpRequest.BodyPublishers.noBody());
+                return;
+            }
 
-            Map<String, List<String>> headerMap = headers.map();
+            if (hasBody(method)) {
+                builder.method(method, HttpRequest.BodyPublishers.ofString(body));
+                return;
+            }
 
-            headerMap.keySet()
-                    .stream()
-                    .forEach(key -> {
-                        final var valueSequence = String.join(SEMI_COLON, headerMap.get(key));
-                        flattenValuedMap.put(key, valueSequence);
-                    });
-
-            // remove [Transfer-Encoding: chunked]
-            flattenValuedMap.remove("transfer-encoding");
-
-            return flattenValuedMap;
+            throw new RuntimeException("Unsupported HTTP Method");
         }
 
-        private static StatusLine buildStatusLine(HttpResponse<String> httpResponse) {
-            final String version = httpResponse.version().name();
-            final int statusCode = httpResponse.statusCode();
-
-            return StatusLine.builder()
-                    .version(ProtocolVersion.of(version))
-                    .statusCode(statusCode)
-                    .reasonPhrase("")
-                    .build();
+        private static boolean hasBody(String method) {
+            return method.equals("POST") || method.equals("PUT");
         }
 
+        private static boolean hasNoBody(String method) {
+            return method.equals("GET") || method.equals("DELETE");
+        }
     }
 }
 

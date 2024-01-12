@@ -13,4 +13,5 @@ public class HttpConstant {
     public static final String LOCALHOST = "localhost";
 
     public static final String TRANSFER_ENCODING = "transfer-encoding";
+    public static final String CONTENT_LENGTH = "Content-Length";
 }

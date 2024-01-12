@@ -8,26 +8,16 @@ import site.ugaeng.localhosting.http.local.response.Response;
 
 import java.io.*;
 import java.net.Socket;
-import java.util.HashMap;
-import java.util.Map;
 
-import static site.ugaeng.localhosting.http.HttpConstant.*;
-import static site.ugaeng.localhosting.http.request.RequestLineBuilder.*;
 import static site.ugaeng.localhosting.util.ClosableUtils.close;
-import static site.ugaeng.localhosting.util.IOStreamUtils.*;
-import static site.ugaeng.localhosting.util.StringUtils.hasText;
 
 @Slf4j
 public class ProxyForwarder implements Runnable {
 
     private final Socket connection;
-    private final BufferedReader reader;
-    private final BufferedWriter writer;
 
     public ProxyForwarder(Socket connection) throws IOException {
         this.connection = connection;
-        this.reader = getBufferedReader(connection.getInputStream());
-        this.writer = getBufferedWriter(connection.getOutputStream());
     }
 
     @Override
@@ -40,45 +30,29 @@ public class ProxyForwarder implements Runnable {
             throw new RuntimeException(e);
         }
 
-        close(connection, reader, writer);
+        close(connection);
     }
 
     private void forward() throws IOException {
-        LocalProcessRequestClient client = LocalRequests.getLocalRequestClient();
+        try (BufferedReader in = new BufferedReader(new InputStreamReader(connection.getInputStream()));
+             BufferedWriter out = new BufferedWriter(new OutputStreamWriter(connection.getOutputStream()))) {
 
-        Request request = readLocalRequest();
-        log.info("HTTP RequestLine : {}", request.getRequestLine());
+            LocalProcessRequestClient client = LocalRequests.getLocalRequestClient();
+            Request request = readRequest(in);
+            log.info("HTTP RequestLine : {}", request.getRequestLine());
 
-        Response response = client.performRequest(request);
+            Response response = client.performRequest(request);
 
-        writeResponse(response);
-    }
-
-    private Request readLocalRequest() throws IOException {
-        final String requestLine = reader.readLine();
-        final Map<String, Object> requestHeader = new HashMap<>();
-
-        String line = null;
-        while (hasText((line = reader.readLine()))) {
-            String[] headerAndValue = line.split(SP);
-
-            final var header = headerAndValue[0];
-            final var value = headerAndValue[1];
-
-            requestHeader.put(header, value);
+            writeResponse(out, response);
         }
-
-        final String requestEntity = "";
-
-        return Request.builder()
-                      .requestLine(buildLocalRequestLine(requestLine))
-                      .headers(requestHeader)
-                      .entity(requestEntity)
-                      .build();
     }
 
-    private void writeResponse(Response response) throws IOException {
-        writer.write(response.generateHttpResponse());
-        writer.flush();
+    private Request readRequest(BufferedReader in) throws IOException {
+        return Request.readFromReader(in);
+    }
+
+    private void writeResponse(BufferedWriter out, Response response) throws IOException {
+        out.write(response.generateHttpResponse());
+        out.flush();
     }
 }
