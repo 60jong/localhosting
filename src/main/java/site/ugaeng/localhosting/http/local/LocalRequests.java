@@ -5,6 +5,8 @@ import site.ugaeng.localhosting.env.EnvironmentConst;
 import site.ugaeng.localhosting.http.local.client.LocalProcessHttpRequestClient;
 import site.ugaeng.localhosting.http.local.client.LocalProcessRequestClient;
 
+import static site.ugaeng.localhosting.env.EnvironmentConst.*;
+
 public class LocalRequests {
 
     public static LocalProcessRequestClient getLocalRequestClient() {
@@ -12,7 +14,7 @@ public class LocalRequests {
     }
 
     public static int getLocalHostingPort() {
-        return (int) Environment.getProperty(EnvironmentConst.HOSTING_PORT);
+        return (int) Environment.getProperty(HOSTING_PORT);
     }
 
     public static String getLocalRequestHost() {

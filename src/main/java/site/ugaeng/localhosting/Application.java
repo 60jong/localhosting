@@ -31,11 +31,12 @@ public class Application {
     }
 
     private static ServerArgs getServerArgs() {
-        try (InputStream systemArgsReader = getServerArgsReader()) {
-            return new Yaml().load(systemArgsReader);
-        } catch (IOException e) {
-            throw new RuntimeException(e);
-        }
+        return new ServerArgs("localhost:9000");
+//        try (InputStream systemArgsReader = getServerArgsReader()) {
+//            return new Yaml().load(systemArgsReader);
+//        } catch (IOException e) {
+//            throw new RuntimeException(e);
+//        }
     }
 
     private static InputStream getServerArgsReader() throws FileNotFoundException {
