@@ -1,4 +1,4 @@
-package site.ugaeng.localhosting;
+package site.ugaeng.localhosting.env;
 
 import lombok.AllArgsConstructor;
 import lombok.Getter;

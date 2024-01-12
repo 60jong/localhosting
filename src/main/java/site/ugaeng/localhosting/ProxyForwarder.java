@@ -9,6 +9,7 @@ import site.ugaeng.localhosting.http.local.response.Response;
 import java.io.*;
 import java.net.Socket;
 
+import static site.ugaeng.localhosting.http.local.LocalRequests.*;
 import static site.ugaeng.localhosting.util.ClosableUtils.close;
 
 @Slf4j
@@ -37,7 +38,7 @@ public class ProxyForwarder implements Runnable {
         try (BufferedReader in = new BufferedReader(new InputStreamReader(connection.getInputStream()));
              BufferedWriter out = new BufferedWriter(new OutputStreamWriter(connection.getOutputStream()))) {
 
-            LocalProcessRequestClient client = LocalRequests.getLocalRequestClient();
+            LocalProcessRequestClient client = getLocalRequestClient();
             Request request = readRequest(in);
             log.info("HTTP RequestLine : {}", request.getRequestLine());
 

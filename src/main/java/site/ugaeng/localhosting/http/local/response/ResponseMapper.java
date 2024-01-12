@@ -1,4 +1,4 @@
-package site.ugaeng.localhosting.http.local.client;
+package site.ugaeng.localhosting.http.local.response;
 
 import site.ugaeng.localhosting.http.ProtocolVersion;
 import site.ugaeng.localhosting.http.local.response.Response;

@@ -1,8 +1,8 @@
 package site.ugaeng.localhosting.test;
 
-import site.ugaeng.localhosting.ClientArgs;
-import site.ugaeng.localhosting.HostingArgs;
-import site.ugaeng.localhosting.ServerArgs;
+import site.ugaeng.localhosting.env.ClientArgs;
+import site.ugaeng.localhosting.env.HostingArgs;
+import site.ugaeng.localhosting.env.ServerArgs;
 import site.ugaeng.localhosting.env.Environment;
 
 public class EnvironmentConfig {

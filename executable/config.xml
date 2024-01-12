@@ -20,5 +20,6 @@
         <requires64Bit>false</requires64Bit>
         <minVersion></minVersion>
         <maxVersion></maxVersion>
+        <opt>-Dfile.encoding=UTF8</opt>
     </jre>
 </launch4jConfig>
