@@ -16,7 +16,7 @@ public class ProxyForwarder implements Runnable {
 
     private final Socket connection;
 
-    public ProxyForwarder(Socket connection) throws IOException {
+    public ProxyForwarder(Socket connection) {
         this.connection = connection;
     }
 
