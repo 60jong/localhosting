@@ -7,7 +7,7 @@ import static site.ugaeng.localhosting.http.HttpConstant.SP;
 
 public class RequestLineBuilder {
 
-    public static RequestLine buildLocalRequestLine(String line) {
+    public static RequestLine buildRequestLine(String line) {
         final String[] elements = line.split(SP);
 
         final var method = elements[0];
@@ -18,9 +18,9 @@ public class RequestLineBuilder {
         final var version = elements[2];
 
         return RequestLine.builder()
-                .method(method)
-                .uri(localUri)
-                .version(ProtocolVersion.of(version))
-                .build();
+                          .method(method)
+                          .uri(localUri)
+                          .version(ProtocolVersion.of(version))
+                          .build();
     }
 }
