@@ -1,8 +1,7 @@
 package site.ugaeng.localhosting;
 
 import lombok.extern.slf4j.Slf4j;
-import org.yaml.snakeyaml.Yaml;
-import site.ugaeng.localhosting.env.Environment;
+import site.ugaeng.localhosting.env.*;
 
 import java.io.*;
 
@@ -10,12 +9,16 @@ import java.io.*;
 public class Application {
 
     public static void main(String[] args) {
-        log.info("## Localhosting start ##");
+        printLogoMessage();
 
         configure(args);
 
         var server = new LocalForwardServer();
         server.run();
+    }
+
+    private static void printLogoMessage() {
+        System.out.println(Message.logoMessage);
     }
 
     private static void configure(String[] args) {
