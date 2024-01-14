@@ -7,6 +7,7 @@ import site.ugaeng.localhosting.test.EnvironmentConfig;
 import java.io.*;
 
 import static org.assertj.core.api.Assertions.assertThat;
+import static site.ugaeng.localhosting.test.TestHttpRequestMessage.HTTP_REQUEST_MESSAGE_POST_JSON;
 import static site.ugaeng.localhosting.test.TestHttpRequestMessage.HTTP_REQUEST_MESSAGE_POST_kr;
 import static site.ugaeng.localhosting.util.IOUtils.readNBytes;
 
@@ -64,6 +65,15 @@ class RequestTest {
             assertThat(readBody).isEqualTo(body);
         } catch (IOException e) {
             // pass test //
+        }
+    }
+
+    @Test
+    void read_from_json() {
+        try (var reader = new BufferedReader(new InputStreamReader(new ByteArrayInputStream(HTTP_REQUEST_MESSAGE_POST_JSON.getBytes())))) {
+
+        } catch (IOException e) {
+
         }
     }
 }

@@ -1,4 +1,4 @@
-package site.ugaeng.localhosting.http;
+package site.ugaeng.localhostingserver.http;
 
 public class HttpConstant {
 
