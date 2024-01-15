@@ -1,7 +1,6 @@
 package site.ugaeng.localhosting.util;
 
-import java.io.BufferedReader;
-import java.io.IOException;
+import java.io.*;
 
 public class IOUtils {
 
@@ -11,5 +10,13 @@ public class IOUtils {
 
         return String.copyValueOf(bodyChars)
                      .trim(); // except NULL char
+    }
+
+    public static BufferedReader getReader(InputStream in) {
+        return new BufferedReader(new InputStreamReader(in));
+    }
+
+    public static BufferedWriter getWriter(OutputStream out) {
+        return new BufferedWriter(new OutputStreamWriter(out));
     }
 }
