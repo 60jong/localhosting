@@ -1,13 +1,13 @@
 package site.ugaeng.localhosting.http.request;
 
-import lombok.Builder;
-import lombok.Getter;
+import lombok.*;
 import site.ugaeng.localhosting.http.ProtocolVersion;
 
 import static site.ugaeng.localhosting.http.HttpConstant.SP;
 
 @Getter
-@Builder
+@NoArgsConstructor(access = AccessLevel.PROTECTED)
+@AllArgsConstructor
 public class RequestLine {
 
     private String method;
@@ -27,3 +27,4 @@ public class RequestLine {
                 .toString();
     }
 }
+

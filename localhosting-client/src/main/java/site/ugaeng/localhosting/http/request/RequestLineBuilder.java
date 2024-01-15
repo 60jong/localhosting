@@ -17,10 +17,6 @@ public class RequestLineBuilder {
 
         final var version = elements[2];
 
-        return RequestLine.builder()
-                          .method(method)
-                          .uri(localUri)
-                          .version(ProtocolVersion.of(version))
-                          .build();
+        return new RequestLine(method, localUri, ProtocolVersion.of(version));
     }
 }

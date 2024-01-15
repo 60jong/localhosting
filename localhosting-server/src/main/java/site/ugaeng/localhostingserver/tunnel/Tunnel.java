@@ -14,5 +14,5 @@ import lombok.NoArgsConstructor;
 public class Tunnel {
 
     @Id
-    private String domainName;
+    private String name;
 }

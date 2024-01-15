@@ -1,10 +1,8 @@
 package site.ugaeng.localhosting;
 
 import lombok.extern.slf4j.Slf4j;
-import site.ugaeng.localhosting.http.local.LocalRequests;
-import site.ugaeng.localhosting.http.local.client.LocalProcessRequestClient;
+import site.ugaeng.localhosting.http.local.client.LocalProcessClient;
 import site.ugaeng.localhosting.http.local.request.Request;
-import site.ugaeng.localhosting.http.local.request.RequestReader;
 import site.ugaeng.localhosting.http.local.response.Response;
 
 import java.io.*;
@@ -40,7 +38,7 @@ public class ProxyForwarder implements Runnable {
         try (BufferedReader in = new BufferedReader(new InputStreamReader(connection.getInputStream()));
              BufferedWriter out = new BufferedWriter(new OutputStreamWriter(connection.getOutputStream()))) {
 
-            LocalProcessRequestClient client = getLocalRequestClient();
+            LocalProcessClient client = getLocalRequestHttpClient();
             Request request = readFromReader(in);
             log.info("HTTP RequestLine : {}", request.getRequestLine());
 

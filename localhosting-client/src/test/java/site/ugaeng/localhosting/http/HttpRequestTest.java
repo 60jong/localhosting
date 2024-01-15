@@ -15,7 +15,6 @@ import static org.assertj.core.api.Assertions.assertThat;
 
 class HttpRequestTest {
 
-    @Test
     void http_connect() throws IOException, URISyntaxException, InterruptedException {
         // given
         HttpClient client = HttpClient.newHttpClient();

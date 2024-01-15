@@ -21,7 +21,7 @@ class RequestTest {
     @Test
     void read_http_request_message() {
         try (var reader =  new BufferedReader(new InputStreamReader(new ByteArrayInputStream(HTTP_REQUEST_MESSAGE_POST_kr.getBytes())))) {
-            Request request = Request.readFromReader(reader);
+            Request request = RequestReader.readFromReader(reader);
 
             assertThat(request.getEntity()).isEqualTo(
                     "{\r\n" +

@@ -23,7 +23,7 @@ import static site.ugaeng.localhostingserver.http.HttpConstant.*;
 public final class Request {
 
     private RequestLine requestLine;
-    private Map<String, Object> headers;
+    private Map<String, String> headers;
     private String entity;
 
     public static Request readFromHttpServletRequest(HttpServletRequest httpRequest) throws IOException {
@@ -32,7 +32,7 @@ public final class Request {
         final RequestLine requestLine = RequestLineBuilder.buildRequestLine(httpRequestLine);
 
         // HTTP 요청 헤더 가져오기
-        final Map<String, Object> requestHeaders = new HashMap<>();
+        final Map<String, String> requestHeaders = new HashMap<>();
         Enumeration<String> headerNames = httpRequest.getHeaderNames();
         while (headerNames.hasMoreElements()) {
             String headerName = headerNames.nextElement();
