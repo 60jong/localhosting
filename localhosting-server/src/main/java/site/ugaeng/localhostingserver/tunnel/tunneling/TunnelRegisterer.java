@@ -1,7 +1,8 @@
-package site.ugaeng.localhostingserver.forward;
+package site.ugaeng.localhostingserver.tunnel.tunneling;
 
 import lombok.extern.slf4j.Slf4j;
-import site.ugaeng.localhostingserver.tunnel.TunnelClient;
+import site.ugaeng.localhostingserver.tunnel.client.TunnelClient;
+import site.ugaeng.localhostingserver.tunnel.client.TunnelClientRepository;
 
 import java.io.BufferedReader;
 import java.io.BufferedWriter;

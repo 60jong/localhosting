@@ -1,4 +1,4 @@
-package site.ugaeng.localhostingserver.tunnel;
+package site.ugaeng.localhostingserver.utils;
 
 public class TunnelDomainNameGenerator {
 

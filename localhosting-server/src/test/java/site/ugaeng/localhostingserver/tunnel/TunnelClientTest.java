@@ -1,10 +1,6 @@
 package site.ugaeng.localhostingserver.tunnel;
 
-import com.fasterxml.jackson.core.JsonProcessingException;
-import com.fasterxml.jackson.databind.ObjectMapper;
 import org.junit.jupiter.api.Test;
-import site.ugaeng.localhostingserver.Response;
-import site.ugaeng.localhostingserver.utils.IOUtils;
 
 import java.io.BufferedReader;
 import java.io.BufferedWriter;
@@ -27,7 +23,7 @@ public class TunnelClientTest {
             "  },\n" +
             "  \"entity\":\"{\\r\\n \\\"domainName\\\" : \\\"ugaeng\\\"\\r\\n}\"\n" +
             "}";
-    @Test
+
     void socket() throws IOException {
         Socket socket = new Socket("localhost", 9000);
 

@@ -3,12 +3,11 @@ package site.ugaeng.localhostingserver.config;
 import jakarta.annotation.PostConstruct;
 import lombok.RequiredArgsConstructor;
 import org.springframework.context.annotation.Configuration;
-import site.ugaeng.localhostingserver.forward.TunnelingServer;
+import site.ugaeng.localhostingserver.tunnel.tunneling.TunnelingServer;
 
 @RequiredArgsConstructor
 @Configuration
-public class TunnelClientConfig {
-
+public class TunnelingConfig {
 
     @PostConstruct
     void init() {

@@ -2,7 +2,6 @@ package site.ugaeng.localhostingserver.tunnel.repository;
 
 import jakarta.persistence.EntityManager;
 import lombok.RequiredArgsConstructor;
-import org.springframework.stereotype.Repository;
 import site.ugaeng.localhostingserver.tunnel.Tunnel;
 
 @RequiredArgsConstructor

@@ -3,10 +3,9 @@ package site.ugaeng.localhostingserver.tunnel.service;
 import lombok.RequiredArgsConstructor;
 import org.springframework.stereotype.Service;
 import org.springframework.transaction.annotation.Transactional;
-import site.ugaeng.localhostingserver.tunnel.TunnelCreateRequest;
-import site.ugaeng.localhostingserver.tunnel.TunnelDomainNameGenerator;
-import site.ugaeng.localhostingserver.tunnel.Tunnel;
 import site.ugaeng.localhostingserver.tunnel.repository.TunnelRepository;
+import site.ugaeng.localhostingserver.utils.TunnelDomainNameGenerator;
+import site.ugaeng.localhostingserver.tunnel.Tunnel;
 
 import static org.springframework.util.StringUtils.hasText;
 

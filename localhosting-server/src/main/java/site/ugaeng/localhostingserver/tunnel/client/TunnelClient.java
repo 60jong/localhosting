@@ -1,8 +1,7 @@
-package site.ugaeng.localhostingserver.tunnel;
+package site.ugaeng.localhostingserver.tunnel.client;
 
 import java.io.BufferedReader;
 import java.io.BufferedWriter;
-import java.io.IOException;
 import java.net.Socket;
 
 public record TunnelClient(

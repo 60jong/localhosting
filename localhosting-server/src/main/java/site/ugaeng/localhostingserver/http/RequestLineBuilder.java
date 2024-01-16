@@ -4,7 +4,7 @@ import static site.ugaeng.localhostingserver.http.HttpConstant.SP;
 
 public class RequestLineBuilder {
 
-    public static RequestLine buildRequestLine(String line) {
+    public static RequestLine build(String line) {
         final String[] elements = line.split(SP);
 
         final var method = elements[0];

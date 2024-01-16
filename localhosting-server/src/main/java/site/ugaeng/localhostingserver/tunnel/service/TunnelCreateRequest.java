@@ -1,4 +1,4 @@
-package site.ugaeng.localhostingserver.tunnel;
+package site.ugaeng.localhostingserver.tunnel.service;
 
 import lombok.AllArgsConstructor;
 import lombok.Getter;
