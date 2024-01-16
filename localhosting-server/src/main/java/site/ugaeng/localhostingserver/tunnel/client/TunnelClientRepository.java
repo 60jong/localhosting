@@ -1,9 +1,9 @@
-package site.ugaeng.localhostingserver.forward;
+package site.ugaeng.localhostingserver.tunnel.client;
 
 import lombok.extern.slf4j.Slf4j;
-import site.ugaeng.localhostingserver.tunnel.TunnelClient;
 
 import java.util.HashMap;
+import java.util.List;
 import java.util.Map;
 import java.util.Optional;
 
@@ -30,6 +30,10 @@ public class TunnelClientRepository {
         connectionMap.put(tunnelName, connection);
     }
 
+    public void changeTunnelClient(String tunnelName, TunnelClient tunnelClient) {
+        save(tunnelName, tunnelClient);
+    }
+
     public Optional<TunnelClient> find(String name) {
         if (connectionMap.containsKey(name)) {
             TunnelClient connection = connectionMap.get(name);
@@ -39,21 +43,14 @@ public class TunnelClientRepository {
         return Optional.empty();
     }
 
-    public int removeClosed() {
-        int removes = 0;
-
-        for (var entry : connectionMap.entrySet()) {
-            TunnelClient client = entry.getValue();
-            if (client.isClosed()) {
-                connectionMap.remove(entry.getKey());
-                removes++;
-            }
-        }
-
-        return removes;
+    /* For Health Check*/
+    public List<String> findAllTunnelNames() {
+        return connectionMap.keySet()
+                .stream()
+                .toList();
     }
 
-    public void changeTunnelClient(String tunnelName, TunnelClient tunnelClient) {
-        save(tunnelName, tunnelClient);
+    public void deleteTunnel(String tunnelName) {
+        connectionMap.remove(tunnelName);
     }
 }
