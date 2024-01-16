@@ -1,10 +1,8 @@
 package site.ugaeng.localhostingserver.tunnel.service;
 
-import jakarta.annotation.PostConstruct;
 import lombok.RequiredArgsConstructor;
 import org.springframework.stereotype.Service;
 import org.springframework.transaction.annotation.Transactional;
-import site.ugaeng.localhostingserver.tunnel.TunnelConnections;
 import site.ugaeng.localhostingserver.tunnel.TunnelCreateRequest;
 import site.ugaeng.localhostingserver.tunnel.TunnelDomainNameGenerator;
 import site.ugaeng.localhostingserver.tunnel.Tunnel;
@@ -17,20 +15,17 @@ import static org.springframework.util.StringUtils.hasText;
 @Service
 public class TunnelService {
 
-    private final TunnelConnections tunnelConnections;
     private final TunnelRepository tunnelRepository;
 
     @Transactional
     public String create(TunnelCreateRequest request) {
-        final String domainName = getValidTunnelDomainName(request.getDomainName());
+        final String domainName = getValidTunnelDomainName(request.getName());
 
         // save Tunnel
         Tunnel tunnel = new Tunnel(domainName);
         tunnelRepository.save(tunnel);
 
-        // save Tunnel Connection
-
-        return tunnel.getDomainName();
+        return tunnel.getName();
     }
 
     private String getValidTunnelDomainName(String domainName) {

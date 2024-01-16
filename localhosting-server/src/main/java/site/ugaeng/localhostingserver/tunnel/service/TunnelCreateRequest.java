@@ -8,8 +8,8 @@ import org.springframework.lang.Nullable;
 @Getter
 @NoArgsConstructor
 @AllArgsConstructor
-public class TunnelRegisterRequest {
+public class TunnelCreateRequest {
 
     @Nullable
-    private String domainName;
+    private String name;
 }

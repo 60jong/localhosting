@@ -1,14 +1,12 @@
 package site.ugaeng.localhostingserver.forward;
 
-import site.ugaeng.localhostingserver.tunnel.service.TunnelService;
-
 import java.io.IOException;
 import java.net.ServerSocket;
 import java.net.Socket;
 
 import static site.ugaeng.localhostingserver.utils.ClosableUtils.*;
 
-public class TunnelRegisterProcessor {
+public class TunnelingProcessor {
 
     private static final int DEFAULT_PORT = 9000;
     private static final int DEFAULT_BACKLOG = 50;
@@ -17,7 +15,7 @@ public class TunnelRegisterProcessor {
 
     private boolean running;
 
-    public TunnelRegisterProcessor() {
+    public TunnelingProcessor() {
         this.serverSocket = createServerSocket();
         this.running = true;
     }

@@ -2,7 +2,6 @@ package site.ugaeng.localhostingserver.forward;
 
 import lombok.extern.slf4j.Slf4j;
 import site.ugaeng.localhostingserver.tunnel.TunnelClient;
-import site.ugaeng.localhostingserver.utils.IOUtils;
 
 import java.io.BufferedReader;
 import java.io.BufferedWriter;
@@ -40,9 +39,15 @@ public class TunnelRegisterer implements Runnable {
                 return;
             }
             log.info("exising Tunnel, Tunnel Name : {}", requestTunnelName);
+            updateTunnelClient(requestTunnelName);
         } catch (IOException e) {
             throw new RuntimeException(e);
         }
+    }
+
+    private void updateTunnelClient(String tunnelName) {
+        TunnelClient tunnelClient = new TunnelClient(registerClient, clientReader, clientWriter);
+        tunnelClientRepository.changeTunnelClient(tunnelName, tunnelClient);
     }
 
     private boolean isExistingTunnelName(String requestTunnelName) {

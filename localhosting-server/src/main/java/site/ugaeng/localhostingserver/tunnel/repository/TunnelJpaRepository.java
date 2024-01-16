@@ -17,7 +17,7 @@ public class TunnelJpaRepository implements TunnelRepository {
 
     @Override
     public boolean exists(String domainName) {
-        return em.createQuery("select t from Tunnel t where t.domainName = :domainName")
+        return em.createQuery("select t from Tunnel t where t.name = :domainName")
                 .setParameter("domainName", domainName)
                 .getResultStream()
                 .findAny()

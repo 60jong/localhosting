@@ -19,7 +19,7 @@ public class TunnelMemoryRepository implements TunnelRepository {
 
     @Override
     public void save(Tunnel tunnel) {
-        tunnelStore.put(tunnel.getDomainName(), tunnel);
+        tunnelStore.put(tunnel.getName(), tunnel);
     }
 
     @Override
