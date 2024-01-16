@@ -1,16 +1,11 @@
 package site.ugaeng.localhostingserver.http;
 
-import jakarta.servlet.ServletRequest;
 import jakarta.servlet.http.HttpServletRequest;
 import lombok.AllArgsConstructor;
 import lombok.Getter;
 import lombok.NoArgsConstructor;
-import site.ugaeng.localhostingserver.http.RequestLine;
 
-import java.io.BufferedReader;
 import java.io.IOException;
-import java.util.Collections;
-import java.util.Enumeration;
 import java.util.HashMap;
 import java.util.Map;
 import java.util.stream.Collectors;
@@ -28,22 +23,39 @@ public final class Request {
 
     public static Request readFromHttpServletRequest(HttpServletRequest httpRequest) throws IOException {
         // HTTP 요청 라인 가져오기
-        String httpRequestLine = String.join(SP, httpRequest.getMethod(), httpRequest.getRequestURI(), httpRequest.getProtocol());
-        final RequestLine requestLine = RequestLineBuilder.buildRequestLine(httpRequestLine);
+        String httpRequestLine = String.join(SP,
+                                             httpRequest.getMethod(),
+                                             getActualUri(httpRequest),
+                                             httpRequest.getProtocol());
+        final RequestLine requestLine = RequestLineBuilder.build(httpRequestLine);
 
         // HTTP 요청 헤더 가져오기
         final Map<String, String> requestHeaders = new HashMap<>();
-        Enumeration<String> headerNames = httpRequest.getHeaderNames();
-        while (headerNames.hasMoreElements()) {
-            String headerName = headerNames.nextElement();
-            String headerValue = httpRequest.getHeader(headerName);
-            requestHeaders.put(headerName, headerValue);
-        }
+        httpRequest.getHeaderNames()
+                   .asIterator()
+                   .forEachRemaining(headerName -> {
+                       requestHeaders.put(headerName, httpRequest.getHeader(headerName));
+                   });
 
         // HTTP 요청 바디 가져오기
-        final String requestBody = httpRequest.getReader().lines()
-                .collect(Collectors.joining(System.lineSeparator()));
+        final String requestBody = httpRequest.getReader()
+                                              .lines()
+                                              .collect(Collectors.joining());
 
         return new Request(requestLine, requestHeaders, requestBody);
+    }
+
+    private static String getActualUri(HttpServletRequest httpRequest) {
+        String originUri = httpRequest.getRequestURI();
+        int actualUriStartIdx = originUri.indexOf("host");
+
+        final String actualUri = originUri.substring(actualUriStartIdx + 4);
+        final String queryString = httpRequest.getQueryString();
+
+        return addQueryStringIfExists(actualUri, queryString);
+    }
+
+    private static String addQueryStringIfExists(String actualUri, String queryString) {
+        return queryString == null ? actualUri : actualUri + "?" + queryString;
     }
 }
