@@ -1,25 +1,21 @@
 package site.ugaeng.localhostingserver.forward;
 
-import com.fasterxml.jackson.databind.ObjectMapper;
 import org.springframework.stereotype.Component;
-import site.ugaeng.localhostingserver.Response;
-import site.ugaeng.localhostingserver.http.HttpConstant;
+import site.ugaeng.localhostingserver.http.Response;
 import site.ugaeng.localhostingserver.http.Request;
-import site.ugaeng.localhostingserver.tunnel.TunnelClient;
-import site.ugaeng.localhostingserver.utils.ObjectUtils;
+import site.ugaeng.localhostingserver.tunnel.client.TunnelClient;
+import site.ugaeng.localhostingserver.tunnel.client.TunnelClientRepository;
 
 import java.io.BufferedReader;
 import java.io.BufferedWriter;
 import java.io.IOException;
-import java.util.stream.Collectors;
 
-import static site.ugaeng.localhostingserver.http.HttpConstant.*;
 import static site.ugaeng.localhostingserver.utils.ObjectUtils.*;
 
 @Component
 public class RequestForwarder {
 
-    public Response forwardRequestForTunnel(String tunnelName, Request request) {
+    public Response forwardRequestForTunnel(String tunnelName, Request request) throws IOException {
         TunnelClient tunnelClient = getTunnelClient(tunnelName);
 
         sendRequest(tunnelClient, request);
@@ -27,11 +23,11 @@ public class RequestForwarder {
         return receiveResponse(tunnelClient);
     }
 
-    private Response receiveResponse(TunnelClient tunnelClient) {
+    private Response receiveResponse(TunnelClient tunnelClient) throws IOException {
         BufferedReader reader = tunnelClient.clientReader();
 
-        final String json = reader.lines()
-                                  .collect(Collectors.joining(CRLF));
+        final String json = reader.readLine();
+
         return convertToObject(json, Response.class);
     }
 
@@ -50,6 +46,6 @@ public class RequestForwarder {
     private TunnelClient getTunnelClient(String tunnelName) {
         return TunnelClientRepository.getInstance()
                 .find(tunnelName)
-                .orElseThrow();
+                .orElseThrow(() -> new RuntimeException("TUNNEL NAME NOT FOUND"));
     }
 }
