@@ -7,14 +7,39 @@
         * {
             background: #0d1117;
             color: #fafafa;
-        }
-        h1 {
             text-align: center;
+        }
+
+        h1 {
+            margin: 50px;
+        }
+
+        table {
+            margin-left: auto;
+            margin-right: auto;
         }
 
     </style>
 </head>
 <body>
-    <h1>Localhosting</h1>
+    <div>
+        <h1>Localhosting</h1>
+    </div>
+
+    <div>
+        <div>
+            <h2>current Tunnels</h2>
+        </div>
+        <div>
+            <table>
+                <tbody>
+                    <tr th:each="tunnelUrl : ${currentTunnelUrls}">
+                        <td> <a th:text="${tunnelUrl}" th:href="@{'http://' + ${tunnelUrl}}"></a></td>
+                    </tr>
+                </tbody>
+            </table>
+        </div>
+    </div>
+
 </body>
 </html>

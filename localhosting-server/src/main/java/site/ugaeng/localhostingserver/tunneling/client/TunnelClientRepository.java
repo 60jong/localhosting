@@ -1,4 +1,4 @@
-package site.ugaeng.localhostingserver.tunnel.client;
+package site.ugaeng.localhostingserver.tunneling.client;
 
 import lombok.extern.slf4j.Slf4j;
 
@@ -6,6 +6,7 @@ import java.util.HashMap;
 import java.util.List;
 import java.util.Map;
 import java.util.Optional;
+import java.util.stream.Collectors;
 
 @Slf4j
 public class TunnelClientRepository {
@@ -47,7 +48,7 @@ public class TunnelClientRepository {
     public List<String> findAllTunnelNames() {
         return connectionMap.keySet()
                 .stream()
-                .toList();
+                .collect(Collectors.toList());
     }
 
     public void deleteTunnel(String tunnelName) {
