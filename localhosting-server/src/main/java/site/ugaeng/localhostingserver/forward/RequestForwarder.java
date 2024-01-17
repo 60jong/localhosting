@@ -3,8 +3,8 @@ package site.ugaeng.localhostingserver.forward;
 import org.springframework.stereotype.Component;
 import site.ugaeng.localhostingserver.http.Response;
 import site.ugaeng.localhostingserver.http.Request;
-import site.ugaeng.localhostingserver.tunnel.client.TunnelClient;
-import site.ugaeng.localhostingserver.tunnel.client.TunnelClientRepository;
+import site.ugaeng.localhostingserver.tunneling.client.TunnelClient;
+import site.ugaeng.localhostingserver.tunneling.client.TunnelClientRepository;
 
 import java.io.BufferedReader;
 import java.io.BufferedWriter;

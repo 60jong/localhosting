@@ -1,4 +1,4 @@
-package site.ugaeng.localhostingserver.tunnel.client;
+package site.ugaeng.localhostingserver.tunneling.client;
 
 import java.io.BufferedReader;
 import java.io.BufferedWriter;

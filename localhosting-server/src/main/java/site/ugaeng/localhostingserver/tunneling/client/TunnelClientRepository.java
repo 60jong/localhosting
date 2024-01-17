@@ -53,4 +53,8 @@ public class TunnelClientRepository {
     public void deleteTunnel(String tunnelName) {
         connectionMap.remove(tunnelName);
     }
+
+    public boolean existsByTunnelName(String tunnelName) {
+        return connectionMap.containsKey(tunnelName);
+    }
 }
