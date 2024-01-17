@@ -65,7 +65,7 @@ public final class Request {
                 slashCount--;
             }
         }
-        thirdSlashIdx++;
+        thirdSlashIdx--;
 
         return originUri.substring(thirdSlashIdx);
     }
