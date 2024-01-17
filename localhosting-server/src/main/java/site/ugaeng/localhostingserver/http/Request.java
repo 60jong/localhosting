@@ -47,12 +47,27 @@ public final class Request {
 
     private static String getActualUri(HttpServletRequest httpRequest) {
         String originUri = httpRequest.getRequestURI();
-        int actualUriStartIdx = originUri.indexOf("host");
 
-        final String actualUri = originUri.substring(actualUriStartIdx + 4);
+        // TODO : getSubstringFromThirdSlash 리팩터링
+        final String actualUri = getSubstringFromThirdSlash(originUri);
         final String queryString = httpRequest.getQueryString();
 
         return addQueryStringIfExists(actualUri, queryString);
+    }
+
+    private static String getSubstringFromThirdSlash(String originUri) {
+        // [ /host/{tunnelName}/** ]
+        int thirdSlashIdx = 0;
+        int slashCount = 3;
+
+        while (slashCount > 0) {
+            if (originUri.charAt(thirdSlashIdx++) == '/') {
+                slashCount--;
+            }
+        }
+        thirdSlashIdx++;
+
+        return originUri.substring(thirdSlashIdx);
     }
 
     private static String addQueryStringIfExists(String actualUri, String queryString) {
