@@ -1,14 +1,14 @@
 package site.ugaeng.localhosting.http.response;
 
-import lombok.Builder;
-import lombok.Getter;
+import lombok.*;
 import site.ugaeng.localhosting.http.HttpConstant;
 import site.ugaeng.localhosting.http.ProtocolVersion;
 
 import static site.ugaeng.localhosting.http.HttpConstant.*;
 
 @Getter
-@Builder
+@NoArgsConstructor(access = AccessLevel.PROTECTED)
+@AllArgsConstructor
 public class StatusLine {
 
     private ProtocolVersion version;
