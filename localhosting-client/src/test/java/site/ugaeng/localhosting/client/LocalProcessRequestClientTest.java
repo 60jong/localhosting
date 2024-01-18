@@ -1,7 +1,6 @@
 package site.ugaeng.localhosting.client;
 
 import site.ugaeng.localhosting.http.local.LocalRequests;
-import site.ugaeng.localhosting.http.local.client.LocalProcessClient;
 import site.ugaeng.localhosting.http.local.request.Request;
 import site.ugaeng.localhosting.http.local.request.RequestReader;
 import site.ugaeng.localhosting.http.local.response.Response;

@@ -9,7 +9,7 @@ public class EnvironmentConfig {
 
     public static void setupEnvironment() {
         ClientArgs clientArgs = new ClientArgs(new String[] {"-p", "8080"});
-        ServerArgs serverArgs = new ServerArgs("localhost:9000");
+        ServerArgs serverArgs = new ServerArgs("localhost:8080", "localhost:9000");
         HostingArgs hostingArgs = new HostingArgs(clientArgs, serverArgs);
         Environment.init(hostingArgs);
     }
