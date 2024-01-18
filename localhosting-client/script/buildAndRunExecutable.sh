@@ -11,6 +11,6 @@ launch4jc ./executable/config.xml
 echo -e '\n### BUILD localhosting.exe success ###\n'
 
 echo -e '\n### RUN localhosting.exe ###'
-./executable/localhosting.exe -p 8080
+./executable/localhosting.exe -p 8888 -name ugaeng
 
 read -p "Press enter to continue"

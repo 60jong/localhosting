@@ -2,6 +2,9 @@ package site.ugaeng.localhosting;
 
 import lombok.extern.slf4j.Slf4j;
 import site.ugaeng.localhosting.env.*;
+import site.ugaeng.localhosting.exception.LocalhostingException;
+import site.ugaeng.localhosting.exception.SocketClosedException;
+import site.ugaeng.localhosting.forward.RequestForwardingTemplates;
 
 import java.io.*;
 
@@ -13,8 +16,30 @@ public class Application {
 
         configure(args);
 
-        var server = new LocalForwardServer();
-        server.run();
+        try
+        {
+            var forwardingTemplate = RequestForwardingTemplates.getHttpRequestForwardingTemplate();
+
+            log.info("Request Forwarding starts");
+            forwardingTemplate.run();
+        }
+        catch (SocketClosedException socketClosedException)
+        {
+            log.error("Local Socket Closed from Tunneling server");
+        }
+        catch (LocalhostingException exception)
+        {
+            log.error("LocalhostingException = {}", exception);
+        }
+        finally
+        {
+            closeAllClosable();
+            log.info("Safely Ended Localhosting");
+        }
+    }
+
+    private static void closeAllClosable() {
+        TunnelingServerConnector.closeConnection();
     }
 
     private static void printLogoMessage() {
@@ -34,7 +59,7 @@ public class Application {
     }
 
     private static ServerArgs getServerArgs() {
-        return new ServerArgs("localhost:9000");
+        return new ServerArgs("15.164.62.252:8080", "15.164.62.252:9000");
 //        try (InputStream systemArgsReader = getServerArgsReader()) {
 //            return new Yaml().load(systemArgsReader);
 //        } catch (IOException e) {
