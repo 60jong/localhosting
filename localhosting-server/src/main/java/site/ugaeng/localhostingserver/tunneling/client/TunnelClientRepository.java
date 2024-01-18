@@ -52,6 +52,16 @@ public class TunnelClientRepository {
     }
 
     public void deleteTunnel(String tunnelName) {
+        closeTunnel(tunnelName);
+        removeTunnel(tunnelName);
+    }
+
+    private void closeTunnel(String tunnelName) {
+        TunnelClient tunnelClient = connectionMap.get(tunnelName);
+        tunnelClient.close();
+    }
+
+    private void removeTunnel(String tunnelName) {
         connectionMap.remove(tunnelName);
     }
 
