@@ -2,8 +2,9 @@ package site.ugaeng.localhosting.env;
 
 public class EnvironmentConst {
 
-    public static final String HOSTING_PORT = "HOSTING_PORT";
-    public static final String HOSTING_DOMAIN_NAME = "HOSTING_DOMAIN_NAME";
+    public static final String LOCAL_PROCESS_PORT = "LOCAL_PROCESS_PORT";
+    public static final String TUNNEL_NAME = "TUNNEL_NAME";
 
-    public static final String PROXY_SERVER_HOST = "PROXY_SERVER_HOST";
+    public static final String PROXY_SERVER_ADDR = "PROXY_SERVER_ADDR";
+    public static final String TUNNELING_SERVER_ADDR = "TUNNELING_SERVER_ADDR";
 }

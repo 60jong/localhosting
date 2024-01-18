@@ -7,5 +7,6 @@ import lombok.Getter;
 @AllArgsConstructor
 public class ServerArgs {
 
-    private String proxyServerHost;
+    private String proxyServerAddr;
+    private String tunnelRegisterServerAddr;
 }
