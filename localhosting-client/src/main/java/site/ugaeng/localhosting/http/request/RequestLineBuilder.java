@@ -13,7 +13,7 @@ public class RequestLineBuilder {
         final var method = elements[0];
 
         final var uri = elements[1];
-        final var localUri = LocalRequests.getLocalRequestHost() + uri;
+        final var localUri = LocalRequests.getLocalRequestAddr() + uri;
 
         final var version = elements[2];
 

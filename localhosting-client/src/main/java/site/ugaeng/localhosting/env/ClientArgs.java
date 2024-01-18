@@ -5,18 +5,18 @@ import lombok.Getter;
 @Getter
 public class ClientArgs {
 
-    private int hostingPort;
-    private String domainName;
+    private int localProcessPort;
+    private String tunnelName;
 
     public ClientArgs(String[] args) {
 
         for (int i = 0; i < args.length; i++) {
             if (args[i].equals("-p")) {
-                this.hostingPort = Integer.parseInt(args[i + 1]);
+                this.localProcessPort = Integer.parseInt(args[i + 1]);
             }
 
             if (args[i].equals("-name")) {
-                this.domainName = args[i + 1];
+                this.tunnelName = args[i + 1];
             }
         }
     }

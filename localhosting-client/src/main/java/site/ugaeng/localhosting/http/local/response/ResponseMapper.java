@@ -18,20 +18,16 @@ public class ResponseMapper {
     public static Response mapToResponse(HttpResponse<String> httpResponse) {
 
         final StatusLine statusLine = buildStatusLine(httpResponse);
-        final Map<String, Object> headers = flattenValuedMap(httpResponse.headers());
+        final Map<String, String> headers = flattenValuedMap(httpResponse.headers());
         removeUnsupportedHeaders(headers);
 
         final String body = httpResponse.body();
 
-        return Response.builder()
-                       .statusLine(statusLine)
-                       .headers(headers)
-                       .entity(body)
-                       .build();
+        return new Response(statusLine, headers, body);
     }
 
-    private static Map<String, Object> flattenValuedMap(HttpHeaders headers) {
-        final Map<String, Object> flattenValuedMap = new HashMap<>();
+    private static Map<String, String> flattenValuedMap(HttpHeaders headers) {
+        final Map<String, String> flattenValuedMap = new HashMap<>();
 
         Map<String, List<String>> headerMap = headers.map();
 
@@ -45,7 +41,7 @@ public class ResponseMapper {
         return flattenValuedMap;
     }
 
-    private static void removeUnsupportedHeaders(Map<String, Object> flattenValuedMap) {
+    private static void removeUnsupportedHeaders(Map<String, String> flattenValuedMap) {
         // remove [Transfer-Encoding: chunked]
         flattenValuedMap.remove(TRANSFER_ENCODING);
     }
@@ -54,11 +50,7 @@ public class ResponseMapper {
         final String version = response.version().name();
         final int statusCode = response.statusCode();
 
-        return StatusLine.builder()
-                         .version(ProtocolVersion.of(version))
-                         .statusCode(statusCode)
-                         .reasonPhrase("")
-                         .build();
+        return new StatusLine(ProtocolVersion.of(version), statusCode, "OK");
     }
 
 }

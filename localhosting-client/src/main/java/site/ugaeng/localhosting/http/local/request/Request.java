@@ -12,6 +12,15 @@ import java.util.Map;
 public final class Request {
 
     private RequestLine requestLine;
-    private Map<String, Object> headers;
+    private Map<String, String> headers;
     private String entity;
+
+    @Override
+    public String toString() {
+        return "Request{" +
+                "requestLine=" + requestLine +
+                ", headers=" + headers +
+                ", entity='" + entity + '\'' +
+                '}';
+    }
 }
