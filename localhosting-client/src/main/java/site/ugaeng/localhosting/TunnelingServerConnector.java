@@ -30,10 +30,7 @@ public class TunnelingServerConnector {
     private static TunnelingServerConnection getNewConnection() {
         Socket connection = createSocketConnection();
 
-        TunnelingServerConnection serverConnection = new TunnelingServerConnection(connection);
-        writeTunnelName(serverConnection);
-
-        return serverConnection;
+        return new TunnelingServerConnection(connection);
     }
 
     private static Socket createSocketConnection() {
@@ -65,12 +62,9 @@ public class TunnelingServerConnector {
         }
     }
 
-    private static void writeTunnelName(TunnelingServerConnection connection) {
-        SocketDataLineWriter socketWriter = connection.getSocketWriter();
-        socketWriter.writeWithLine(getTunnelName());
-    }
-
     public static void closeConnection() {
-        serverConnection.close();
+        if (serverConnection != null) {
+            serverConnection.close();
+        }
     }
 }

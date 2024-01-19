@@ -3,9 +3,7 @@ package site.ugaeng.localhosting.client;
 import com.fasterxml.jackson.databind.ObjectMapper;
 import site.ugaeng.localhosting.http.local.request.Request;
 
-import java.io.BufferedReader;
-import java.io.BufferedWriter;
-import java.io.IOException;
+import java.io.*;
 import java.net.Socket;
 
 public class ServerConnectionTest {
@@ -16,8 +14,8 @@ public class ServerConnectionTest {
         // given
         Socket socket = new Socket("localhost", 9000);
 
-        BufferedWriter writer = IOUtils.getWriter(socket.getOutputStream());
-        BufferedReader reader = IOUtils.getReader(socket.getInputStream());
+        BufferedWriter writer = new BufferedWriter(new OutputStreamWriter(socket.getOutputStream()));
+        BufferedReader reader = new BufferedReader(new InputStreamReader(socket.getInputStream()));
 
         System.out.println(1);
         // register Tunnel
