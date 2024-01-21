@@ -1,5 +1,6 @@
 package site.ugaeng.localhostingserver.forward;
 
+import lombok.extern.slf4j.Slf4j;
 import org.springframework.stereotype.Component;
 import site.ugaeng.localhostingserver.http.Response;
 import site.ugaeng.localhostingserver.http.Request;
@@ -12,6 +13,7 @@ import java.io.IOException;
 
 import static site.ugaeng.localhostingserver.utils.ObjectUtils.*;
 
+@Slf4j
 @Component
 public class RequestForwarder {
 
@@ -28,6 +30,7 @@ public class RequestForwarder {
 
         final String json = reader.readLine();
 
+        log.info("response received [{}] from tunnel client [{}]", json, tunnelClient.client());
         return convertToObject(json, Response.class);
     }
 
@@ -35,9 +38,13 @@ public class RequestForwarder {
         BufferedWriter writer = tunnelClient.clientWriter();
 
         try {
-            writer.write(convertToString(request));
+            String convertedRequest = convertToString(request);
+
+            writer.write(convertedRequest);
             writer.newLine();
             writer.flush();
+
+            log.info("request forwarded [{}] to tunnel client [{}]", convertedRequest, tunnelClient.client());
         } catch (IOException e) {
             throw new RuntimeException(e);
         }
