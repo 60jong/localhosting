@@ -27,7 +27,6 @@ public class MainController {
 
     private List<String> getCurrentTunnelUrls() {
         List<String> tunnelNames = tunnelClientRepository.findAllTunnelNames();
-        tunnelNames.add("test");
 
         return tunnelNames.stream()
                           .map(tunnelName -> tunnelName + ".localhosting.do-main.site")

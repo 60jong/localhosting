@@ -29,4 +29,12 @@ public class HealthController {
 
         return "DELETE SUCCESS";
     }
+
+    @DeleteMapping("/tunnels/clear")
+    @ResponseBody
+    public String deleteTunnel() {
+        tunnelClientRepository.deleteAllTunnel();
+
+        return "DELETE ALL SUCCESS";
+    }
 }

@@ -38,7 +38,7 @@ public class TunnelClientRepository {
     public Optional<TunnelClient> find(String name) {
         if (connectionMap.containsKey(name)) {
             TunnelClient connection = connectionMap.get(name);
-            log.info("find connection : {}", connection.client());
+            log.info("tunnel client found : {}", connection.client());
             return Optional.ofNullable(connection);
         }
         return Optional.empty();
@@ -67,5 +67,9 @@ public class TunnelClientRepository {
 
     public boolean existsByTunnelName(String tunnelName) {
         return connectionMap.containsKey(tunnelName);
+    }
+
+    public void deleteAllTunnel() {
+        connectionMap.clear();
     }
 }
