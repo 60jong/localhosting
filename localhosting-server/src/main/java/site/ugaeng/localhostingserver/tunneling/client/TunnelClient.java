@@ -20,4 +20,13 @@ public record TunnelClient(
     public void close() {
         ClosableUtils.close(client, clientReader, clientWriter);
     }
+
+    public String getClientAddr() {
+        return client.getInetAddress()
+                     .getHostAddress();
+    }
+
+    public int getClientPort() {
+        return client.getPort();
+    }
 }

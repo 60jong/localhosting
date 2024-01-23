@@ -1,18 +1,21 @@
 package site.ugaeng.localhostingserver.tunnel;
 
+import lombok.RequiredArgsConstructor;
 import org.springframework.stereotype.Service;
-import site.ugaeng.localhostingserver.tunneling.client.TunnelClientRepository;
 
+@RequiredArgsConstructor
 @Service
 public class TunnelService {
 
-    private final TunnelClientRepository tunnelClientRepository;
+    private final TunnelRepository tunnelRepository;
 
-    public TunnelService() {
-        tunnelClientRepository = TunnelClientRepository.getInstance();
+    public void create(String remoteAddr, int remotePort, String tunnelName) {
+        tunnelRepository.save(new Tunnel(tunnelName, new Address(remoteAddr, remotePort)));
     }
 
-    public boolean existsByTunnelName(final String tunnelName) {
-        return tunnelClientRepository.existsByTunnelName(tunnelName);
+    public Tunnel findByName(String tunnelName) {
+        return tunnelRepository.findByName(tunnelName)
+                               .orElseThrow();
     }
+
 }

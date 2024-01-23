@@ -5,8 +5,10 @@ import jakarta.servlet.http.HttpServletResponse;
 import lombok.RequiredArgsConstructor;
 import org.springframework.stereotype.Service;
 import site.ugaeng.localhostingserver.forward.RequestForwarder;
+import site.ugaeng.localhostingserver.forward.SocketRequestForwarder;
 import site.ugaeng.localhostingserver.http.Request;
 import site.ugaeng.localhostingserver.http.Response;
+import site.ugaeng.localhostingserver.tunnel.Tunnel;
 import site.ugaeng.localhostingserver.tunnel.TunnelService;
 
 import java.io.IOException;
@@ -20,23 +22,17 @@ public class HostService {
 
     public void host(String tunnelName, HttpServletRequest httpRequest, HttpServletResponse httpResponse) {
 
-        checkTunnelExistence(tunnelName);
+        Tunnel tunnel = tunnelService.findByName(tunnelName);
 
-        hostForTunnel(tunnelName, httpRequest, httpResponse);
+        hostForTunnel(tunnel, httpRequest, httpResponse);
     }
 
-    private void checkTunnelExistence(String tunnelName) {
-        if (!tunnelService.existsByTunnelName(tunnelName)) {
-            throw new RuntimeException("TUNNEL NOT FOUND");
-        }
-    }
-
-    private void hostForTunnel(String tunnelName, HttpServletRequest httpRequest, HttpServletResponse httpResponse) {
+    private void hostForTunnel(Tunnel tunnel, HttpServletRequest httpRequest, HttpServletResponse httpResponse) {
         try
         {
             Request request = Request.readFromHttpServletRequest(httpRequest);
 
-            Response response = forwarder.forwardRequestForTunnel(tunnelName, request);
+            Response response = forwarder.forwardRequestForTunnel(tunnel, request);
 
             writeResponse(response, httpResponse);
         }

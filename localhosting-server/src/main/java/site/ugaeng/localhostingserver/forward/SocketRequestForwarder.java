@@ -4,6 +4,7 @@ import lombok.extern.slf4j.Slf4j;
 import org.springframework.stereotype.Component;
 import site.ugaeng.localhostingserver.http.Response;
 import site.ugaeng.localhostingserver.http.Request;
+import site.ugaeng.localhostingserver.tunnel.Tunnel;
 import site.ugaeng.localhostingserver.tunneling.client.TunnelClient;
 import site.ugaeng.localhostingserver.tunneling.client.TunnelClientRepository;
 
@@ -15,23 +16,21 @@ import static site.ugaeng.localhostingserver.utils.ObjectUtils.*;
 
 @Slf4j
 @Component
-public class RequestForwarder {
+public class SocketRequestForwarder implements RequestForwarder {
 
-    public Response forwardRequestForTunnel(String tunnelName, Request request) throws IOException {
-        TunnelClient tunnelClient = getTunnelClient(tunnelName);
+    @Override
+    public Response forwardRequestForTunnel(Tunnel tunnel, Request request) throws IOException {
+        TunnelClient tunnelClient = getTunnelClient(tunnel.getName());
 
         sendRequest(tunnelClient, request);
 
         return receiveResponse(tunnelClient);
     }
 
-    private Response receiveResponse(TunnelClient tunnelClient) throws IOException {
-        BufferedReader reader = tunnelClient.clientReader();
-
-        final String json = reader.readLine();
-
-        log.info("response received [{}] from tunnel client [{}]", json, tunnelClient.client());
-        return convertToObject(json, Response.class);
+    private TunnelClient getTunnelClient(String tunnelName) {
+        return TunnelClientRepository.getInstance()
+                .find(tunnelName)
+                .orElseThrow(() -> new RuntimeException("TUNNEL NAME NOT FOUND"));
     }
 
     private void sendRequest(TunnelClient tunnelClient, Request request) {
@@ -50,9 +49,12 @@ public class RequestForwarder {
         }
     }
 
-    private TunnelClient getTunnelClient(String tunnelName) {
-        return TunnelClientRepository.getInstance()
-                .find(tunnelName)
-                .orElseThrow(() -> new RuntimeException("TUNNEL NAME NOT FOUND"));
+    private Response receiveResponse(TunnelClient tunnelClient) throws IOException {
+        BufferedReader reader = tunnelClient.clientReader();
+
+        final String json = reader.readLine();
+
+        log.info("response received [{}] from tunnel client [{}]", json, tunnelClient.client());
+        return convertToObject(json, Response.class);
     }
 }

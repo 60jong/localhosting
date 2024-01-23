@@ -24,6 +24,7 @@ public class HttpRequestForwardingTemplate extends RequestForwardingTemplate {
         return request;
     }
 
+    @Override
     public Response performForwardedRequest(Request request) {
         return processClient.performRequest(request);
     }
