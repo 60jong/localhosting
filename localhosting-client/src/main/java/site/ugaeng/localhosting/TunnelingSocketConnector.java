@@ -2,7 +2,6 @@ package site.ugaeng.localhosting;
 
 import lombok.extern.slf4j.Slf4j;
 import site.ugaeng.localhosting.exception.LocalhostingException;
-import site.ugaeng.localhosting.io.SocketDataLineWriter;
 
 import java.io.IOException;
 import java.net.Socket;
@@ -12,11 +11,11 @@ import static site.ugaeng.localhosting.env.EnvironmentConst.TUNNELING_SERVER_ADD
 import static site.ugaeng.localhosting.http.HttpConstant.COLON;
 
 @Slf4j
-public class TunnelingServerConnector {
+public class TunnelingSocketConnector {
 
-    private static TunnelingServerConnection serverConnection;
+    private static TunnelingSocketConnection serverConnection;
 
-    public static TunnelingServerConnection getServerConnection() {
+    public static TunnelingSocketConnection getSocketConnection() {
         if (hasLiveConnection()) {
             return serverConnection;
         }
@@ -27,10 +26,10 @@ public class TunnelingServerConnector {
         return serverConnection != null && serverConnection.isConnected();
     }
 
-    private static TunnelingServerConnection getNewConnection() {
+    private static TunnelingSocketConnection getNewConnection() {
         Socket connection = createSocketConnection();
 
-        return new TunnelingServerConnection(connection);
+        return new TunnelingSocketConnection(connection);
     }
 
     private static Socket createSocketConnection() {

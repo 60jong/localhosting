@@ -1,4 +1,4 @@
-package site.ugaeng.localhosting.io;
+package site.ugaeng.localhosting.impl.socket.io;
 
 import site.ugaeng.localhosting.exception.LocalhostingException;
 import site.ugaeng.localhosting.http.local.response.Response;
