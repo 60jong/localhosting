@@ -2,6 +2,9 @@ package site.ugaeng.localhostingserver.tunnel;
 
 import lombok.RequiredArgsConstructor;
 import org.springframework.stereotype.Service;
+import site.ugaeng.localhostingserver.tunnel.domain.Address;
+import site.ugaeng.localhostingserver.tunnel.domain.Tunnel;
+import site.ugaeng.localhostingserver.tunnel.repository.TunnelRepository;
 
 @RequiredArgsConstructor
 @Service

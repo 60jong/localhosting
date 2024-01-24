@@ -3,7 +3,7 @@ package site.ugaeng.localhostingserver;
 import com.fasterxml.jackson.core.JsonProcessingException;
 import com.fasterxml.jackson.databind.ObjectMapper;
 import org.junit.jupiter.api.Test;
-import site.ugaeng.localhostingserver.http.Response;
+import site.ugaeng.localhostingserver.http.response.Response;
 
 public class ResponseTest {
 

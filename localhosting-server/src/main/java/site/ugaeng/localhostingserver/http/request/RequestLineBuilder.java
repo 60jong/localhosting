@@ -1,4 +1,6 @@
-package site.ugaeng.localhostingserver.http;
+package site.ugaeng.localhostingserver.http.request;
+
+import site.ugaeng.localhostingserver.http.ProtocolVersion;
 
 import static site.ugaeng.localhostingserver.http.HttpConstant.SP;
 

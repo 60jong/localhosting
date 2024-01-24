@@ -1,9 +1,9 @@
-package site.ugaeng.localhostingserver.tunneling.client;
+package site.ugaeng.localhostingserver.impl.socket.tunneling.client;
 
 import lombok.extern.slf4j.Slf4j;
-import site.ugaeng.localhostingserver.tunnel.Address;
-import site.ugaeng.localhostingserver.tunnel.Tunnel;
-import site.ugaeng.localhostingserver.tunnel.TunnelRepository;
+import site.ugaeng.localhostingserver.tunnel.domain.Address;
+import site.ugaeng.localhostingserver.tunnel.domain.Tunnel;
+import site.ugaeng.localhostingserver.tunnel.repository.TunnelRepository;
 
 import java.util.HashMap;
 import java.util.List;
@@ -14,17 +14,12 @@ import java.util.stream.Collectors;
 @Slf4j
 public class TunnelClientRepository {
 
-    private static TunnelRepository tunnelRepository;
     private static TunnelClientRepository instance;
 
     private final Map<String, TunnelClient> connectionMap;
 
     private TunnelClientRepository() {
         connectionMap = new HashMap<>();
-    }
-
-    public static void initialize(TunnelRepository tunnelRepositoryBean) {
-        tunnelRepository = tunnelRepositoryBean;
     }
 
     public static TunnelClientRepository getInstance() {
@@ -38,7 +33,6 @@ public class TunnelClientRepository {
     public void save(String tunnelName, TunnelClient connection) {
         Address address = new Address(connection.getClientAddr(), connection.getClientPort());
         Tunnel tunnel = new Tunnel(tunnelName, address);
-        tunnelRepository.save(tunnel);
 
         connectionMap.put(tunnelName, connection);
     }

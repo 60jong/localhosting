@@ -1,4 +1,6 @@
-package site.ugaeng.localhostingserver.tunnel;
+package site.ugaeng.localhostingserver.tunnel.repository;
+
+import site.ugaeng.localhostingserver.tunnel.domain.Tunnel;
 
 import java.util.Optional;
 

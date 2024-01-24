@@ -1,8 +1,8 @@
 package site.ugaeng.localhostingserver.forward;
 
-import site.ugaeng.localhostingserver.http.Request;
-import site.ugaeng.localhostingserver.http.Response;
-import site.ugaeng.localhostingserver.tunnel.Tunnel;
+import site.ugaeng.localhostingserver.http.request.Request;
+import site.ugaeng.localhostingserver.http.response.Response;
+import site.ugaeng.localhostingserver.tunnel.domain.Tunnel;
 
 import java.io.IOException;
 

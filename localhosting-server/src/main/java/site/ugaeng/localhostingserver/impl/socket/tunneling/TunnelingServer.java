@@ -1,4 +1,4 @@
-package site.ugaeng.localhostingserver.tunneling;
+package site.ugaeng.localhostingserver.impl.socket.tunneling;
 
 import lombok.extern.slf4j.Slf4j;
 

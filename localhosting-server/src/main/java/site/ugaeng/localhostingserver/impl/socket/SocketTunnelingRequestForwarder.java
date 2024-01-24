@@ -1,12 +1,12 @@
-package site.ugaeng.localhostingserver.forward;
+package site.ugaeng.localhostingserver.impl.socket;
 
 import lombok.extern.slf4j.Slf4j;
-import org.springframework.stereotype.Component;
-import site.ugaeng.localhostingserver.http.Response;
-import site.ugaeng.localhostingserver.http.Request;
-import site.ugaeng.localhostingserver.tunnel.Tunnel;
-import site.ugaeng.localhostingserver.tunneling.client.TunnelClient;
-import site.ugaeng.localhostingserver.tunneling.client.TunnelClientRepository;
+import site.ugaeng.localhostingserver.forward.RequestForwarder;
+import site.ugaeng.localhostingserver.http.response.Response;
+import site.ugaeng.localhostingserver.http.request.Request;
+import site.ugaeng.localhostingserver.impl.socket.tunneling.client.TunnelClient;
+import site.ugaeng.localhostingserver.impl.socket.tunneling.client.TunnelClientRepository;
+import site.ugaeng.localhostingserver.tunnel.domain.Tunnel;
 
 import java.io.BufferedReader;
 import java.io.BufferedWriter;
@@ -15,8 +15,7 @@ import java.io.IOException;
 import static site.ugaeng.localhostingserver.utils.ObjectUtils.*;
 
 @Slf4j
-@Component
-public class SocketRequestForwarder implements RequestForwarder {
+public class SocketTunnelingRequestForwarder implements RequestForwarder {
 
     @Override
     public Response forwardRequestForTunnel(Tunnel tunnel, Request request) throws IOException {

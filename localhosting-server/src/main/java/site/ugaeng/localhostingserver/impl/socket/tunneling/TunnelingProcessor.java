@@ -1,4 +1,4 @@
-package site.ugaeng.localhostingserver.tunneling;
+package site.ugaeng.localhostingserver.impl.socket.tunneling;
 
 import java.io.IOException;
 import java.net.ServerSocket;
@@ -32,6 +32,7 @@ public class TunnelingProcessor {
 
     private void registerTunnel() throws IOException {
         Socket registerClient = serverSocket.accept();
+//        registerClient.setSoTimeout(10000);
 
         TunnelRegisterer registerer = createRegisterer(registerClient);
         registerer.run();

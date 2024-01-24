@@ -1,4 +1,4 @@
-package site.ugaeng.localhostingserver.tunneling.client;
+package site.ugaeng.localhostingserver.impl.socket.tunneling.client;
 
 import site.ugaeng.localhostingserver.utils.ClosableUtils;
 

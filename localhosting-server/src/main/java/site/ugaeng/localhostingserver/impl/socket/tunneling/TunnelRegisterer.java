@@ -1,8 +1,8 @@
-package site.ugaeng.localhostingserver.tunneling;
+package site.ugaeng.localhostingserver.impl.socket.tunneling;
 
 import lombok.extern.slf4j.Slf4j;
-import site.ugaeng.localhostingserver.tunneling.client.TunnelClient;
-import site.ugaeng.localhostingserver.tunneling.client.TunnelClientRepository;
+import site.ugaeng.localhostingserver.impl.socket.tunneling.client.TunnelClient;
+import site.ugaeng.localhostingserver.impl.socket.tunneling.client.TunnelClientRepository;
 
 import java.io.BufferedReader;
 import java.io.BufferedWriter;
@@ -23,6 +23,8 @@ public class TunnelRegisterer implements Runnable {
 
     public TunnelRegisterer(Socket registerClient) throws IOException {
         this.registerClient = registerClient;
+        registerClient.setKeepAlive(true);
+
         this.clientReader = getReader(registerClient.getInputStream());
         this.clientWriter = getWriter(registerClient.getOutputStream());
 

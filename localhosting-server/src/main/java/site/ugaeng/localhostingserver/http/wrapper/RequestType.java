@@ -1,4 +1,4 @@
-package site.ugaeng.localhostingserver.http;
+package site.ugaeng.localhostingserver.http.wrapper;
 
 public class RequestType {
 

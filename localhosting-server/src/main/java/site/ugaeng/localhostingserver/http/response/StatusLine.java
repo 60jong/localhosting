@@ -1,4 +1,4 @@
-package site.ugaeng.localhostingserver.http;
+package site.ugaeng.localhostingserver.http.response;
 
 import lombok.Builder;
 import lombok.Getter;
