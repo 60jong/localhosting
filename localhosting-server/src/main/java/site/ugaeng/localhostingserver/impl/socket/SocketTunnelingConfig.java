@@ -1,25 +1,15 @@
-package site.ugaeng.localhostingserver.config;
+package site.ugaeng.localhostingserver.impl.socket;
 
 import jakarta.annotation.PostConstruct;
-import lombok.RequiredArgsConstructor;
-import site.ugaeng.localhostingserver.tunnel.TunnelRepository;
-import site.ugaeng.localhostingserver.tunneling.TunnelingServer;
-import site.ugaeng.localhostingserver.tunneling.client.TunnelClientRepository;
+import org.springframework.context.annotation.Bean;
+import site.ugaeng.localhostingserver.forward.RequestForwarder;
+import site.ugaeng.localhostingserver.impl.socket.tunneling.TunnelingServer;
 
-@RequiredArgsConstructor
 public class SocketTunnelingConfig {
-
-    private final TunnelRepository tunnelRepository;
 
     @PostConstruct
     void init() {
-        initializeTunnelClientRepository();
-
         startTunnelingServerThread();
-    }
-
-    private void initializeTunnelClientRepository() {
-        TunnelClientRepository.initialize(tunnelRepository);
     }
 
     private void startTunnelingServerThread() {
@@ -35,5 +25,10 @@ public class SocketTunnelingConfig {
         });
         tunnelingServerThread.setName("tunnelingserver");
         return tunnelingServerThread;
+    }
+
+    @Bean
+    public RequestForwarder socketTunnelingRequestForwarder() {
+        return new SocketTunnelingRequestForwarder();
     }
 }

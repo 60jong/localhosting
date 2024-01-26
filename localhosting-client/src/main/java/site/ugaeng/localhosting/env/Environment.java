@@ -18,7 +18,7 @@ public class Environment {
         // server arguments
         ServerArgs serverArgs = args.getServerArgs();
         properties.put(PROXY_SERVER_ADDR, serverArgs.getProxyServerAddr());
-        properties.put(TUNNELING_SERVER_ADDR, serverArgs.getTunnelRegisterServerAddr());
+        properties.put(TUNNELING_SERVER_ADDR, serverArgs.getTunnelingServerAddr());
     }
 
     public static Object getProperty(String key) {

@@ -17,4 +17,8 @@ public class HttpConstant {
     public static final String TRANSFER_ENCODING = "transfer-encoding";
     public static final String CONTENT_LENGTH = "Content-Length";
     public static final String HOST = "Host";
+    public static final String CONTENT_TYPE = "Content-Type";
+
+    public static final String APPLICATION_JSON = "application/json";
+
 }
