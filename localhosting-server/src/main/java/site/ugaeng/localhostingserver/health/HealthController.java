@@ -2,7 +2,7 @@ package site.ugaeng.localhostingserver.health;
 
 import org.springframework.stereotype.Controller;
 import org.springframework.web.bind.annotation.*;
-import site.ugaeng.localhostingserver.tunneling.client.TunnelClientRepository;
+import site.ugaeng.localhostingserver.impl.socket.tunneling.client.TunnelClientRepository;
 
 import java.util.List;
 

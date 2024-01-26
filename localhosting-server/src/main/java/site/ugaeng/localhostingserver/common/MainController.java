@@ -3,7 +3,7 @@ package site.ugaeng.localhostingserver.common;
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
 import org.springframework.web.bind.annotation.GetMapping;
-import site.ugaeng.localhostingserver.tunneling.client.TunnelClientRepository;
+import site.ugaeng.localhostingserver.impl.socket.tunneling.client.TunnelClientRepository;
 
 import java.util.List;
 import java.util.stream.Collectors;

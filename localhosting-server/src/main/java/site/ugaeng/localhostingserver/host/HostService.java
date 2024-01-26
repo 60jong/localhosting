@@ -5,10 +5,9 @@ import jakarta.servlet.http.HttpServletResponse;
 import lombok.RequiredArgsConstructor;
 import org.springframework.stereotype.Service;
 import site.ugaeng.localhostingserver.forward.RequestForwarder;
-import site.ugaeng.localhostingserver.forward.SocketRequestForwarder;
-import site.ugaeng.localhostingserver.http.Request;
-import site.ugaeng.localhostingserver.http.Response;
-import site.ugaeng.localhostingserver.tunnel.Tunnel;
+import site.ugaeng.localhostingserver.http.request.Request;
+import site.ugaeng.localhostingserver.http.response.Response;
+import site.ugaeng.localhostingserver.tunnel.domain.Tunnel;
 import site.ugaeng.localhostingserver.tunnel.TunnelService;
 
 import java.io.IOException;
