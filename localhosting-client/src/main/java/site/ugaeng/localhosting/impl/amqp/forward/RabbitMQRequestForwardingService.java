@@ -8,6 +8,7 @@ import site.ugaeng.localhosting.impl.amqp.TunnelConsumer;
 import site.ugaeng.localhosting.impl.amqp.conn.RabbitMQTunnelConnection;
 
 import java.io.IOException;
+import java.util.concurrent.TimeoutException;
 
 import static site.ugaeng.localhosting.env.Environment.getTunnelName;
 
@@ -15,7 +16,24 @@ public class RabbitMQRequestForwardingService implements RequestForwardingServic
 
     @Override
     public void startForwarding(TunnelConnection connection) {
-        startWorkConsumers((RabbitMQTunnelConnection) connection);
+        var rmqConnection = (RabbitMQTunnelConnection) connection;
+
+        declareRequestQueue(rmqConnection);
+        startWorkConsumers(rmqConnection);
+    }
+
+    private void declareRequestQueue(RabbitMQTunnelConnection connection) {
+        final String requestQueue = "tunnel-" + getTunnelName();
+
+        try (var channel = connection.createChannel()){
+            channel.queueDeclare(requestQueue,
+                                 false,
+                                 false,
+                                 true,
+                                 null);
+        } catch (IOException | TimeoutException ex) {
+            throw new LocalhostingException(ex);
+        }
     }
 
     private void startWorkConsumers(RabbitMQTunnelConnection connection) {
