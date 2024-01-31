@@ -21,5 +21,6 @@
         <minVersion></minVersion>
         <maxVersion></maxVersion>
         <opt>-Dfile.encoding=UTF8</opt>
+        <opt>-Djdk.httpclient.allowRestrictedHeaders=connection,content-length,host</opt>
     </jre>
 </launch4jConfig>
