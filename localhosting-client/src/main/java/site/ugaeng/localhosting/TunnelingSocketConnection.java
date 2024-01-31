@@ -36,18 +36,11 @@ public class TunnelingSocketConnection implements TunnelingConnection {
         return connection.isConnected();
     }
 
-    public Request readRequest() {
-        return socketReader.readRequestByLine();
-    }
-
     public void sendResponse(Response response) {
         socketWriter.writeResponseWithLine(response);
     }
 
-    public void sendData(String data) {
-        socketWriter.writeWithLine(data);
-    }
-
+    @Override
     public void close() {
         ClosableUtils.close(socketReader, socketWriter, connection);
     }
