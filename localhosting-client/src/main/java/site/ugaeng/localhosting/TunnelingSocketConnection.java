@@ -1,8 +1,7 @@
 package site.ugaeng.localhosting;
 
 import lombok.Getter;
-import site.ugaeng.localhosting.http.local.request.Request;
-import site.ugaeng.localhosting.http.local.response.Response;
+import site.ugaeng.localhosting.http.response.Response;
 import site.ugaeng.localhosting.impl.socket.io.SocketDataLineReader;
 import site.ugaeng.localhosting.impl.socket.io.SocketDataLineWriter;
 import site.ugaeng.localhosting.util.ClosableUtils;
