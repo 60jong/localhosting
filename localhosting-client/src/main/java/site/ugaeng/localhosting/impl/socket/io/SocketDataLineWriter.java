@@ -1,11 +1,10 @@
 package site.ugaeng.localhosting.impl.socket.io;
 
 import site.ugaeng.localhosting.exception.LocalhostingException;
-import site.ugaeng.localhosting.http.local.response.Response;
+import site.ugaeng.localhosting.http.response.Response;
 
 import java.io.*;
 import java.net.Socket;
-import java.util.Objects;
 
 import static site.ugaeng.localhosting.util.ObjectUtils.convertToString;
 

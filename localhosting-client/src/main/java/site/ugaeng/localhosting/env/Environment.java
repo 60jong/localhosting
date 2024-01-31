@@ -22,9 +22,10 @@ public class Environment {
 
         // rmq arguments
         properties.put(RMQ_HOST, args.getRmqHost());
-        properties.put(RMQ_PORT, args.getRmqPort());
+        properties.put(RMQ_PORT, args.getRmqPort() != null ? args.getRmqPort() : RMQ_DEFAULT_PORT);
         properties.put(RMQ_USERNAME, args.getRmqUsername());
         properties.put(RMQ_PASSWORD, args.getRmqPassword());
+        properties.put(RMQ_WORK_CONSUMERS, args.getRmqWorkConsumers() != null ? args.getRmqWorkConsumers() : RMQ_DEFAULT_WORK_CONSUMERS);
     }
 
     public static Object getProperty(String key) {
@@ -33,5 +34,25 @@ public class Environment {
 
     public static String getTunnelName() {
         return (String) getProperty(TUNNEL_NAME);
+    }
+
+    public static String getRabbitMQHost() {
+        return (String) getProperty(RMQ_HOST);
+    }
+
+    public static int getRabbitMQPORT() {
+        return (int) getProperty(RMQ_PORT);
+    }
+
+    public static String getRabbitMQUsername() {
+        return (String) getProperty(RMQ_USERNAME);
+    }
+
+    public static String getRabbitMQPassword() {
+        return (String) getProperty(RMQ_PASSWORD);
+    }
+
+    public static int getRabbitMQWorkConsumers() {
+        return (int) getProperty(RMQ_WORK_CONSUMERS);
     }
 }

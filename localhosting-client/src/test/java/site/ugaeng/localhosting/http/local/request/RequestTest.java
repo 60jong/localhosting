@@ -2,6 +2,8 @@ package site.ugaeng.localhosting.http.local.request;
 
 import org.junit.jupiter.api.BeforeEach;
 import org.junit.jupiter.api.Test;
+import site.ugaeng.localhosting.http.request.Request;
+import site.ugaeng.localhosting.http.request.RequestReader;
 import site.ugaeng.localhosting.test.EnvironmentConfig;
 import site.ugaeng.localhosting.util.ObjectUtils;
 

@@ -13,9 +13,10 @@ public class TunnelArgs {
     private String proxyServerAddr;
     private String tunnelingServerAddr;
     private String rmqHost;
-    private int rmqPort;
+    private Integer rmqPort;
     private String rmqUsername;
     private String rmqPassword;
+    private Integer rmqWorkConsumers;
 
     public TunnelArgs(ClientArgs clientArgs, ServerArgs serverArgs) {
         // client args
@@ -26,9 +27,10 @@ public class TunnelArgs {
         this.tunnelingPlatform = serverArgs.getTunnelingPlatform();
         this.proxyServerAddr = serverArgs.getProxyServerAddr();
         this.tunnelingServerAddr = serverArgs.getTunnelingServerAddr();
-        this.rmqHost = serverArgs.getRabbitMqHost();
-        this.rmqPort = serverArgs.getRabbitMqPort();
-        this.rmqUsername = serverArgs.getRabbitMqUsername();
-        this.rmqPassword = serverArgs.getRabbitMqPassword();
+        this.rmqHost = serverArgs.getRabbitMQHost();
+        this.rmqPort = serverArgs.getRabbitMQPort();
+        this.rmqUsername = serverArgs.getRabbitMQUsername();
+        this.rmqPassword = serverArgs.getRabbitMQPassword();
+        this.rmqWorkConsumers = serverArgs.getRabbitMQWorkConsumers();
     }
 }

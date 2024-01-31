@@ -1,9 +1,9 @@
 package site.ugaeng.localhosting.client;
 
 import site.ugaeng.localhosting.http.local.LocalRequests;
-import site.ugaeng.localhosting.http.local.request.Request;
-import site.ugaeng.localhosting.http.local.request.RequestReader;
-import site.ugaeng.localhosting.http.local.response.Response;
+import site.ugaeng.localhosting.http.request.Request;
+import site.ugaeng.localhosting.http.request.RequestReader;
+import site.ugaeng.localhosting.http.response.Response;
 import site.ugaeng.localhosting.test.EnvironmentConfig;
 
 import java.io.BufferedReader;

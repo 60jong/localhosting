@@ -2,9 +2,9 @@ package site.ugaeng.localhosting.http.local.client;
 
 import site.ugaeng.localhosting.client.LocalProcessClient;
 import site.ugaeng.localhosting.http.local.LocalRequests;
-import site.ugaeng.localhosting.http.local.request.Request;
+import site.ugaeng.localhosting.http.request.Request;
 import site.ugaeng.localhosting.http.request.RequestLine;
-import site.ugaeng.localhosting.http.local.response.Response;
+import site.ugaeng.localhosting.http.response.Response;
 
 import java.net.URI;
 import java.net.http.HttpClient;
@@ -14,7 +14,7 @@ import java.util.Map;
 
 import static java.net.http.HttpClient.*;
 import static java.net.http.HttpResponse.*;
-import static site.ugaeng.localhosting.http.local.response.ResponseMapper.mapToResponse;
+import static site.ugaeng.localhosting.http.response.ResponseMapper.mapToResponse;
 
 /**
  * java - HttpClient

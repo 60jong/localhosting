@@ -1,7 +1,7 @@
 package site.ugaeng.localhosting.client;
 
 import com.fasterxml.jackson.databind.ObjectMapper;
-import site.ugaeng.localhosting.http.local.request.Request;
+import site.ugaeng.localhosting.http.request.Request;
 
 import java.io.*;
 import java.net.Socket;

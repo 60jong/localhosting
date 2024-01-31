@@ -2,6 +2,7 @@ package site.ugaeng.localhosting.http.local.response;
 
 import org.junit.jupiter.api.Test;
 import site.ugaeng.localhosting.http.ProtocolVersion;
+import site.ugaeng.localhosting.http.response.Response;
 import site.ugaeng.localhosting.http.response.StatusLine;
 import site.ugaeng.localhosting.util.ObjectUtils;
 

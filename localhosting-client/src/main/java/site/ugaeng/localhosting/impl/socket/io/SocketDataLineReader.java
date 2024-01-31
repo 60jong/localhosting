@@ -2,12 +2,10 @@ package site.ugaeng.localhosting.impl.socket.io;
 
 import site.ugaeng.localhosting.exception.LocalhostingException;
 import site.ugaeng.localhosting.exception.SocketClosedException;
-import site.ugaeng.localhosting.http.local.request.Request;
-import site.ugaeng.localhosting.util.StringUtils;
+import site.ugaeng.localhosting.http.request.Request;
 
 import java.io.*;
 import java.net.Socket;
-import java.util.Objects;
 
 import static site.ugaeng.localhosting.util.ObjectUtils.*;
 import static site.ugaeng.localhosting.util.StringUtils.hasText;
