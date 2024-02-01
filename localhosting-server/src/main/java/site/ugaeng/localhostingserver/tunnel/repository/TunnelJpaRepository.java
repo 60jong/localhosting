@@ -5,6 +5,7 @@ import lombok.RequiredArgsConstructor;
 import org.springframework.stereotype.Repository;
 import site.ugaeng.localhostingserver.tunnel.domain.Tunnel;
 
+import java.util.List;
 import java.util.Optional;
 
 @RequiredArgsConstructor
@@ -23,5 +24,22 @@ public class TunnelJpaRepository implements TunnelRepository {
                  .setParameter("name", tunnelName)
                  .getResultStream()
                  .findAny();
+    }
+
+    @Override
+    public List<String> findAllTunnelName() {
+        return em.createQuery("select t.name from Tunnel t", String.class)
+                 .getResultList();
+    }
+
+    @Override
+    public void deleteTunnel(String tunnelName) {
+        em.createQuery("delete from Tunnel t where t.name = :name")
+          .setParameter("name", tunnelName);
+    }
+
+    @Override
+    public void clear() {
+        em.createQuery("delete from Tunnel t");
     }
 }
