@@ -13,7 +13,6 @@ import java.io.IOException;
 import java.util.concurrent.TimeoutException;
 
 @RequiredArgsConstructor
-@Transactional(readOnly = true)
 @Service
 public class TunnelService {
 
