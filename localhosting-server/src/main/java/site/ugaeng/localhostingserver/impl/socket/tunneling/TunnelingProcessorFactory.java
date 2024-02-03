@@ -1,25 +1,16 @@
 package site.ugaeng.localhostingserver.impl.socket.tunneling;
 
-import site.ugaeng.localhostingserver.http.request.Request;
+import site.ugaeng.localhostingserver.impl.socket.tunneling.request.TunnelRequest;
 
 public class TunnelingProcessorFactory {
 
-    public static TunnelProcessor createTunnelProcessorByRequest(Request request) {
-        String requestUri = getRequestUri(request);
+    public static TunnelRequestProcessor createTunnelRequestProcessor(TunnelRequest request) {
+        String requestType = request.getType();
 
-        if (requestUri.equals("/tunnels")) {
-            return new TunnelRegisterer(request);
-        }
-
-        if (requestUri.startsWith("/connections")) {
-            return new TunnelConnector(request);
+        if (requestType.equals("CONNECTION")) {
+            return new TunnelConnector(request.getTunnelName());
         }
 
         throw new RuntimeException();
-    }
-
-    private static String getRequestUri(Request request) {
-        return request.getRequestLine()
-                      .getUri();
     }
 }
