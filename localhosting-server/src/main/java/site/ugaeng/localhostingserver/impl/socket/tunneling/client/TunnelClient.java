@@ -1,15 +1,15 @@
 package site.ugaeng.localhostingserver.impl.socket.tunneling.client;
 
+import site.ugaeng.localhostingserver.impl.socket.io.SocketDataLineReader;
+import site.ugaeng.localhostingserver.impl.socket.io.SocketDataLineWriter;
 import site.ugaeng.localhostingserver.utils.ClosableUtils;
 
-import java.io.BufferedReader;
-import java.io.BufferedWriter;
 import java.net.Socket;
 
 public record TunnelClient(
         Socket client,
-        BufferedReader clientReader,
-        BufferedWriter clientWriter
+        SocketDataLineReader clientReader,
+        SocketDataLineWriter clientWriter
 ) {
 
     public boolean isClosed() {

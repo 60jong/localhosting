@@ -6,6 +6,7 @@ import lombok.RequiredArgsConstructor;
 import org.springframework.stereotype.Service;
 import site.ugaeng.localhostingserver.forward.RequestForwarder;
 import site.ugaeng.localhostingserver.http.request.Request;
+import site.ugaeng.localhostingserver.http.request.reader.RequestReader;
 import site.ugaeng.localhostingserver.http.response.Response;
 import site.ugaeng.localhostingserver.tunnel.domain.Tunnel;
 import site.ugaeng.localhostingserver.tunnel.TunnelService;
@@ -20,7 +21,6 @@ public class HostService {
     private final RequestForwarder forwarder;
 
     public void host(String tunnelName, HttpServletRequest httpRequest, HttpServletResponse httpResponse) {
-
         Tunnel tunnel = tunnelService.findByName(tunnelName);
 
         hostForTunnel(tunnel, httpRequest, httpResponse);
@@ -29,7 +29,7 @@ public class HostService {
     private void hostForTunnel(Tunnel tunnel, HttpServletRequest httpRequest, HttpServletResponse httpResponse) {
         try
         {
-            Request request = Request.readFromHttpServletRequest(httpRequest);
+            Request request = RequestReader.readFromHttpServletRequest(httpRequest);
 
             Response response = forwarder.forwardRequestForTunnel(tunnel, request);
 

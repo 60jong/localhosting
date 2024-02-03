@@ -1,10 +1,10 @@
 package site.ugaeng.localhosting.client;
 
 import lombok.RequiredArgsConstructor;
-import site.ugaeng.localhosting.TunnelRegisterer;
-import site.ugaeng.localhosting.conn.TunnelConnection;
-import site.ugaeng.localhosting.conn.TunnelConnectionService;
-import site.ugaeng.localhosting.forward.RequestForwardingService;
+import site.ugaeng.localhosting.tunnel.TunnelRegisterer;
+import site.ugaeng.localhosting.tunnel.conn.TunnelConnection;
+import site.ugaeng.localhosting.tunnel.conn.TunnelConnectionService;
+import site.ugaeng.localhosting.tunnel.forward.RequestForwardingService;
 
 import static site.ugaeng.localhosting.env.Environment.getTunnelName;
 

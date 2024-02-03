@@ -1,10 +1,15 @@
-package site.ugaeng.localhostingserver.impl.socket;
+package site.ugaeng.localhostingserver.impl.socket.config;
 
 import jakarta.annotation.PostConstruct;
 import org.springframework.context.annotation.Bean;
+import org.springframework.context.annotation.Configuration;
+import org.springframework.context.annotation.Profile;
 import site.ugaeng.localhostingserver.forward.RequestForwarder;
+import site.ugaeng.localhostingserver.impl.socket.SocketTunnelingRequestForwarder;
 import site.ugaeng.localhostingserver.impl.socket.tunneling.TunnelingServer;
 
+@Profile("socket")
+@Configuration
 public class SocketTunnelingConfig {
 
     @PostConstruct
@@ -24,6 +29,7 @@ public class SocketTunnelingConfig {
             tunnelingServer.run();
         });
         tunnelingServerThread.setName("tunnelingserver");
+
         return tunnelingServerThread;
     }
 
