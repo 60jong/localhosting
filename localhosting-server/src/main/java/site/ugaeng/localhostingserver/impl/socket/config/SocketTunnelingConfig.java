@@ -7,6 +7,9 @@ import org.springframework.context.annotation.Profile;
 import site.ugaeng.localhostingserver.forward.RequestForwarder;
 import site.ugaeng.localhostingserver.impl.socket.SocketTunnelingRequestForwarder;
 import site.ugaeng.localhostingserver.impl.socket.tunneling.TunnelingServer;
+import site.ugaeng.localhostingserver.tunnel.repository.TunnelRepository;
+import site.ugaeng.localhostingserver.tunnel.service.SocketTunnelService;
+import site.ugaeng.localhostingserver.tunnel.service.TunnelService;
 
 @Profile("socket")
 @Configuration
@@ -36,5 +39,10 @@ public class SocketTunnelingConfig {
     @Bean
     public RequestForwarder socketTunnelingRequestForwarder() {
         return new SocketTunnelingRequestForwarder();
+    }
+
+    @Bean
+    public TunnelService tunnelService(TunnelRepository tunnelRepository) {
+        return new SocketTunnelService(tunnelRepository);
     }
 }

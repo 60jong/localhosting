@@ -1,4 +1,10 @@
 spring:
+  profiles:
+    group:
+      socket: socket
+      rmq: rabbitmq
+    active: socket
+
   datasource:
     driver-class-name: org.h2.Driver
     url: jdbc:h2:mem:localhosting-db
@@ -7,12 +13,23 @@ spring:
   h2:
     console:
       enabled: true
+  jpa:
+    open-in-view: false
 
+--- # forwarding by Socket
+spring:
+  config:
+    activate:
+      on-profile: socket
+
+--- # forwarding by RabbitMQ
+spring:
+  config:
+    activate:
+      on-profile: rabbitmq
   rabbitmq:
     host: localhost
     port: 5672
     username: guest
     password: guest
-
-  jpa:
-    open-in-view: false
+---
