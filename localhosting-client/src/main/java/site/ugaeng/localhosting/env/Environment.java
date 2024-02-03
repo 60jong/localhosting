@@ -1,10 +1,12 @@
 package site.ugaeng.localhosting.env;
 
+import site.ugaeng.localhosting.tunnel.impl.amqp.RabbitMQConstant;
+
 import java.util.HashMap;
 import java.util.Map;
 
 import static site.ugaeng.localhosting.env.EnvironmentConst.*;
-import static site.ugaeng.localhosting.impl.amqp.RabbitMQConstant.*;
+import static site.ugaeng.localhosting.tunnel.impl.amqp.RabbitMQConstant.*;
 
 public class Environment {
 
@@ -54,5 +56,9 @@ public class Environment {
 
     public static int getRabbitMQWorkConsumers() {
         return (int) getProperty(RMQ_WORK_CONSUMERS);
+    }
+
+    public static String getTunnelingServerAddr() {
+        return (String) getProperty(TUNNELING_SERVER_ADDR);
     }
 }
