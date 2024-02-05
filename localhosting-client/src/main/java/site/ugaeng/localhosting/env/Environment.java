@@ -22,12 +22,14 @@ public class Environment {
         properties.put(PROXY_SERVER_ADDR, args.getProxyServerAddr());
         properties.put(TUNNELING_SERVER_ADDR, args.getTunnelingServerAddr());
 
+        /*
         // rmq arguments
         properties.put(RMQ_HOST, args.getRmqHost());
         properties.put(RMQ_PORT, args.getRmqPort() != null ? args.getRmqPort() : RMQ_DEFAULT_PORT);
         properties.put(RMQ_USERNAME, args.getRmqUsername());
         properties.put(RMQ_PASSWORD, args.getRmqPassword());
         properties.put(RMQ_WORK_CONSUMERS, args.getRmqWorkConsumers() != null ? args.getRmqWorkConsumers() : RMQ_DEFAULT_WORK_CONSUMERS);
+        */
     }
 
     public static Object getProperty(String key) {
@@ -58,6 +60,9 @@ public class Environment {
         return (int) getProperty(RMQ_WORK_CONSUMERS);
     }
 
+    public static String getProxyServerAddr() {
+        return (String) getProperty(PROXY_SERVER_ADDR);
+    }
     public static String getTunnelingServerAddr() {
         return (String) getProperty(TUNNELING_SERVER_ADDR);
     }
