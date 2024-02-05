@@ -29,4 +29,12 @@ public class TunnelClientRepository {
     public Optional<TunnelClient> find(String tunnelName) {
         return Optional.ofNullable(tunnelClientMap.get(tunnelName));
     }
+
+    public void deleteTunnel(String tunnelName) {
+        tunnelClientMap.remove(tunnelName);
+    }
+
+    public void clear() {
+        tunnelClientMap.clear();
+    }
 }

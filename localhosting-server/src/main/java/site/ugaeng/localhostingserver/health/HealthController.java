@@ -8,12 +8,17 @@ import site.ugaeng.localhostingserver.tunnel.repository.TunnelRepository;
 
 import java.util.List;
 
-@RequiredArgsConstructor
 @RequestMapping("/health")
 @Controller
 public class HealthController {
 
     private final TunnelRepository tunnelRepository;
+    private final TunnelClientRepository tunnelClientRepository;
+
+    public HealthController(TunnelRepository tunnelRepository) {
+        this.tunnelRepository = tunnelRepository;
+        this.tunnelClientRepository = TunnelClientRepository.getInstance();
+    }
 
     @GetMapping("/tunnels")
     @ResponseBody
@@ -25,6 +30,7 @@ public class HealthController {
     @ResponseBody
     public String deleteTunnel(@RequestParam String tunnelName) {
         tunnelRepository.deleteTunnel(tunnelName);
+        tunnelClientRepository.deleteTunnel(tunnelName);
 
         return "DELETE SUCCESS";
     }
@@ -33,6 +39,7 @@ public class HealthController {
     @ResponseBody
     public String deleteTunnel() {
         tunnelRepository.clear();
+        tunnelClientRepository.clear();
 
         return "DELETE ALL SUCCESS";
     }
