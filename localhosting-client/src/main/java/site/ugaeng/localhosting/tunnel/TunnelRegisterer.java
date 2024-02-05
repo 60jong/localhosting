@@ -38,6 +38,6 @@ public class TunnelRegisterer {
     }
 
     private URI getTunnelRegisterURI() {
-        return URI.create("http://" + getTunnelingServerAddr() + "/tunnels");
+        return URI.create("http://" + getProxyServerAddr() + "/tunnels");
     }
 }
