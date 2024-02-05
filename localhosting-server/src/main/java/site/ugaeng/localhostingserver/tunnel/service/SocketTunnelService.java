@@ -4,7 +4,6 @@ import lombok.RequiredArgsConstructor;
 import lombok.extern.slf4j.Slf4j;
 import org.springframework.stereotype.Service;
 import org.springframework.transaction.annotation.Transactional;
-import site.ugaeng.localhostingserver.impl.socket.tunneling.TunnelClientRepository;
 import site.ugaeng.localhostingserver.tunnel.TunnelRegisterRequest;
 import site.ugaeng.localhostingserver.tunnel.domain.Address;
 import site.ugaeng.localhostingserver.tunnel.domain.Tunnel;
@@ -12,6 +11,7 @@ import site.ugaeng.localhostingserver.tunnel.repository.TunnelRepository;
 
 @Slf4j
 @RequiredArgsConstructor
+@Transactional(readOnly = true)
 @Service
 public class SocketTunnelService implements TunnelService {
 
@@ -21,12 +21,7 @@ public class SocketTunnelService implements TunnelService {
     @Override
     public void create(String remoteAddr, int remotePort, TunnelRegisterRequest request) {
         saveTunnel(remoteAddr, remotePort, request);
-        log.info("new Tunnel [{}] created", remoteAddr, remotePort, request.getTunnelName());
-        declareTunnel(request.getTunnelName());
-    }
-
-    private void declareTunnel(String tunnelName) {
-
+        log.info("new Tunnel [{}] created", request.getTunnelName());
     }
 
     private void saveTunnel(String remoteAddr, int remotePort, TunnelRegisterRequest request) {

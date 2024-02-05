@@ -4,6 +4,13 @@ import com.fasterxml.jackson.core.JsonProcessingException;
 import com.fasterxml.jackson.databind.ObjectMapper;
 import org.junit.jupiter.api.Test;
 import site.ugaeng.localhostingserver.http.request.Request;
+import site.ugaeng.localhostingserver.impl.socket.io.SocketDataLineWriter;
+import site.ugaeng.localhostingserver.tunnel.TunnelRegisterRequest;
+import site.ugaeng.localhostingserver.utils.ObjectUtils;
+
+import java.io.IOException;
+import java.net.Socket;
+
 public class RequestTest {
 
     ObjectMapper om = new ObjectMapper();
@@ -38,5 +45,17 @@ public class RequestTest {
         System.out.println(request.getRequestLine());
         System.out.println(request.getHeaders());
         System.out.println(request.getEntity());
+    }
+
+    @Test
+    void read_body() {
+        // given
+        String entity = "{\"tunnelName\" : \"hello\"}";
+
+        // when
+        TunnelRegisterRequest request = ObjectUtils.convertToObject(entity, TunnelRegisterRequest.class);
+
+        // then
+        System.out.println(request.getTunnelName());
     }
 }

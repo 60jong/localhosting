@@ -2,7 +2,7 @@ package site.ugaeng.localhostingserver.impl.socket.tunneling.request;
 
 import lombok.Getter;
 import lombok.NoArgsConstructor;
-import site.ugaeng.localhostingserver.impl.socket.tunneling.TunnelClient;
+import site.ugaeng.localhostingserver.impl.socket.tunneling.client.TunnelClient;
 
 import static site.ugaeng.localhostingserver.utils.ObjectUtils.convertToObject;
 

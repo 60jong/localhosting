@@ -20,4 +20,5 @@ public class HttpConstant {
 
     public static final String HOST = "Host";
 
+    public static final String SEP = "/";
 }

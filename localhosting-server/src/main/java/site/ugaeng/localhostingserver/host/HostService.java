@@ -3,16 +3,18 @@ package site.ugaeng.localhostingserver.host;
 import jakarta.servlet.http.HttpServletRequest;
 import jakarta.servlet.http.HttpServletResponse;
 import lombok.RequiredArgsConstructor;
+import lombok.extern.slf4j.Slf4j;
 import org.springframework.stereotype.Service;
 import site.ugaeng.localhostingserver.forward.RequestForwarder;
 import site.ugaeng.localhostingserver.http.request.Request;
 import site.ugaeng.localhostingserver.http.request.reader.RequestReader;
 import site.ugaeng.localhostingserver.http.response.Response;
 import site.ugaeng.localhostingserver.tunnel.domain.Tunnel;
-import site.ugaeng.localhostingserver.tunnel.TunnelService;
+import site.ugaeng.localhostingserver.tunnel.service.TunnelService;
 
 import java.io.IOException;
 
+@Slf4j
 @RequiredArgsConstructor
 @Service
 public class HostService {
