@@ -26,6 +26,7 @@ public class AMQPTunnelingRequestForwarder implements RequestForwarder {
                 .withBody(convertToString(request).getBytes(UTF_8))
                 .build();
 
+        rabbitTemplate.setReplyTimeout(30000);
         Message response = rabbitTemplate.sendAndReceive("tunnel-" + tunnel.getName(), message);
 
         String result = new String(response.getBody(), UTF_8);
