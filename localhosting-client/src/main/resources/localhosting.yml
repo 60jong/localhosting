@@ -1,0 +1,7 @@
+hosting:
+  addr:
+    proxyServerAddr: localhosting.do-main.site
+    tunnelingServerAddr: localhosting.do-main.site:9000
+
+  tunneling:
+    platform: SOCKET

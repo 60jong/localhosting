@@ -42,5 +42,3 @@ bin/
 .DS_Store
 
 ### project ###
-*.exe
-*.yml
