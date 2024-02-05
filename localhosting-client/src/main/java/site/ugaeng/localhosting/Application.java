@@ -2,12 +2,12 @@ package site.ugaeng.localhosting;
 
 import lombok.extern.slf4j.Slf4j;
 import site.ugaeng.localhosting.client.LocalhostingClient;
-import site.ugaeng.localhosting.config.TunnelConfig;
-import site.ugaeng.localhosting.config.TunnelConfigFactory;
-import site.ugaeng.localhosting.conn.TunnelConnectionService;
+import site.ugaeng.localhosting.tunnel.config.TunnelConfig;
+import site.ugaeng.localhosting.tunnel.config.TunnelConfigFactory;
+import site.ugaeng.localhosting.tunnel.conn.TunnelConnectionService;
 import site.ugaeng.localhosting.env.*;
 import site.ugaeng.localhosting.exception.LocalhostingException;
-import site.ugaeng.localhosting.forward.RequestForwardingService;
+import site.ugaeng.localhosting.tunnel.forward.RequestForwardingService;
 
 @Slf4j
 public class Application {
