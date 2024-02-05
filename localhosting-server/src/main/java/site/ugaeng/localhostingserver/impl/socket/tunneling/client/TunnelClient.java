@@ -1,32 +1,23 @@
-package site.ugaeng.localhostingserver.impl.socket.tunneling.client;
+package site.ugaeng.localhostingserver.impl.socket.tunneling;
 
+import lombok.Getter;
 import site.ugaeng.localhostingserver.impl.socket.io.SocketDataLineReader;
 import site.ugaeng.localhostingserver.impl.socket.io.SocketDataLineWriter;
-import site.ugaeng.localhostingserver.utils.ClosableUtils;
 
 import java.net.Socket;
 
-public record TunnelClient(
-        Socket client,
-        SocketDataLineReader clientReader,
-        SocketDataLineWriter clientWriter
-) {
+import static site.ugaeng.localhostingserver.utils.SocketIOUtils.*;
 
-    public boolean isClosed() {
-        // TODO : check heartbeat
-        return false;
-    }
+@Getter
+public class TunnelClient {
 
-    public void close() {
-        ClosableUtils.close(client, clientReader, clientWriter);
-    }
+    private final Socket connection;
+    private final SocketDataLineReader clientReader;
+    private final SocketDataLineWriter clientWriter;
 
-    public String getClientAddr() {
-        return client.getInetAddress()
-                     .getHostAddress();
-    }
-
-    public int getClientPort() {
-        return client.getPort();
+    public TunnelClient(Socket connection) {
+        this.connection = connection;
+        this.clientReader = getReader(connection);
+        this.clientWriter = getWriter(connection);
     }
 }
