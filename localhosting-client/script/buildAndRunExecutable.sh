@@ -7,7 +7,7 @@ echo -e '\n### BUILD localhosting.jar success ###\n'
 
 # build localhosting.exe
 echo -e '\n### BUILD localhosting.exe start ###\n'
-launch4jc ./executable/config.xml
+launch4jc ./script/config.xml
 echo -e '\n### BUILD localhosting.exe success ###\n'
 
 echo -e '\n### RUN localhosting.exe ###'
