@@ -1,5 +1,8 @@
 package site.ugaeng.localhostingserver.impl.socket.tunneling;
 
+import site.ugaeng.localhostingserver.impl.socket.tunneling.client.TunnelClient;
+import site.ugaeng.localhostingserver.impl.socket.tunneling.client.TunnelClientRepository;
+
 public class TunnelConnector implements TunnelRequestProcessor {
 
     private final TunnelClientRepository tunnelClientRepository;

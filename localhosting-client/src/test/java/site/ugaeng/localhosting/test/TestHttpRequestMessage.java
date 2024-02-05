@@ -32,7 +32,7 @@ public class TestHttpRequestMessage {
             "    \"name\" : \"안녕\"\r\n" +
             "}";
     public static final String HTTP_REQUEST_MESSAGE_GET_JSON =
-            "{\"requestLine\":{\"method\":\"GET\",\"uri\":\"localhost:8888/posts\",\"version\":\"HTTP_1_1\"},\"headers\":{\"Host\":\"localhost:8888\"},\"entity\":\"\"}";
+            "{\"requestLine\":{\"method\":\"GET\",\"uri\":\"/posts\",\"version\":\"HTTP_1_1\"},\"headers\":{\"Host\":\"localhost:8888\"},\"entity\":\"\"}";
 
 
     public static final String HTTP_REQUEST_MESSAGE_POST_JSON =

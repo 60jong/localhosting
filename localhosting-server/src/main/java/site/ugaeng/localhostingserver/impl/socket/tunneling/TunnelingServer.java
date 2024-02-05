@@ -1,6 +1,7 @@
 package site.ugaeng.localhostingserver.impl.socket.tunneling;
 
 import lombok.extern.slf4j.Slf4j;
+import site.ugaeng.localhostingserver.impl.socket.tunneling.client.TunnelClient;
 import site.ugaeng.localhostingserver.impl.socket.tunneling.request.TunnelRequest;
 
 import java.io.IOException;
@@ -35,6 +36,7 @@ public class TunnelingServer {
                 throw new RuntimeException(e);
             }
         }
+        stop();
     }
 
     private void service(TunnelClient client) {

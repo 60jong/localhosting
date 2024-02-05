@@ -3,6 +3,7 @@ package site.ugaeng.localhostingserver.tunnel;
 import jakarta.servlet.http.HttpServletRequest;
 import lombok.RequiredArgsConstructor;
 import org.springframework.web.bind.annotation.*;
+import site.ugaeng.localhostingserver.tunnel.service.TunnelService;
 
 @RequiredArgsConstructor
 @RestController

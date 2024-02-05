@@ -1,4 +1,4 @@
-package site.ugaeng.localhostingserver.impl.socket.tunneling;
+package site.ugaeng.localhostingserver.impl.socket.tunneling.client;
 
 import lombok.Getter;
 import site.ugaeng.localhostingserver.impl.socket.io.SocketDataLineReader;
