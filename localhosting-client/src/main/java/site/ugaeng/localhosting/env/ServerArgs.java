@@ -23,35 +23,35 @@ public class ServerArgs {
                       .getPlatform();
     }
 
-    public String getRabbitMQHost() {
-        return hosting.getTunneling()
-                .getRabbitmq()
-                .getHost();
-    }
-
-    public int getRabbitMQPort() {
-        return hosting.getTunneling()
-                .getRabbitmq()
-                .getPort();
-    }
-
-    public String getRabbitMQUsername() {
-        return hosting.getTunneling()
-                .getRabbitmq()
-                .getUsername();
-    }
-
-    public String getRabbitMQPassword() {
-        return hosting.getTunneling()
-                .getRabbitmq()
-                .getPassword();
-    }
-
-    public int getRabbitMQWorkConsumers() {
-        return hosting.getTunneling()
-                .getRabbitmq()
-                .getWorkConsumers();
-    }
+//    public String getRabbitMQHost() {
+//        return hosting.getTunneling()
+//                .getRabbitmq()
+//                .getHost();
+//    }
+//
+//    public int getRabbitMQPort() {
+//        return hosting.getTunneling()
+//                .getRabbitmq()
+//                .getPort();
+//    }
+//
+//    public String getRabbitMQUsername() {
+//        return hosting.getTunneling()
+//                .getRabbitmq()
+//                .getUsername();
+//    }
+//
+//    public String getRabbitMQPassword() {
+//        return hosting.getTunneling()
+//                .getRabbitmq()
+//                .getPassword();
+//    }
+//
+//    public int getRabbitMQWorkConsumers() {
+//        return hosting.getTunneling()
+//                .getRabbitmq()
+//                .getWorkConsumers();
+//    }
 
     @Getter @Setter
     public static class HostingArgs {
@@ -70,16 +70,16 @@ public class ServerArgs {
     public static class TunnelingArgs {
 
         private String platform;
-        private RabbitMQArgs rabbitmq;
+//        private RabbitMQArgs rabbitmq;
     }
 
-    @Getter @Setter
-    public static class RabbitMQArgs {
-
-        private String host;
-        private Integer port;
-        private String username;
-        private String password;
-        private Integer workConsumers;
-    }
+//    @Getter @Setter
+//    public static class RabbitMQArgs {
+//
+//        private String host;
+//        private Integer port;
+//        private String username;
+//        private String password;
+//        private Integer workConsumers;
+//    }
 }

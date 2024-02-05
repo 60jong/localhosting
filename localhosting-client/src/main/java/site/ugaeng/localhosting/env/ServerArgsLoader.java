@@ -10,9 +10,12 @@ import java.io.FileNotFoundException;
 
 public class ServerArgsLoader {
 
+    private static final String YAML_PATH = "/server.conf/localhosting.yml";
+
     public static ServerArgs load() {
         try {
-            final String yamlPath = System.getProperty("user.dir") + "/src/main/resources/localhosting.yml";
+            final String yamlPath = System.getProperty("user.dir") + YAML_PATH;
+
             File yamlFile = new File(yamlPath);
 
             return new Yaml().loadAs(new FileInputStream(yamlFile), ServerArgs.class);
